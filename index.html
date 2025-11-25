@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrición en BDiR Maresme - Asesoría Gratis</title>
+    
+    <!-- 1. IMPORTAR TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. CONFIGURACIÓN DE FUENTES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- 3. IMPORTAR ICONOS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configuración de estilos personalizados -->
+    <style>
+        body { font-family: 'Open Sans', sans-serif; }
+        h1, h2, h3, h4, button, .font-title { font-family: 'Montserrat', sans-serif; }
+        
+        /* Color azul BDiR personalizado (mantenido) */
+        .text-bdir-blue { color: #009FE3; }
+        .bg-bdir-blue { background-color: #009FE3; }
+        .border-bdir-blue { border-color: #009FE3; }
+        .hover-bg-bdir-dark:hover { background-color: #007bb0; }
+        .ring-bdir-blue:focus { --tw-ring-color: #009FE3; }
+        
+        /* Estilos para el selector de idioma */
+        .lang-btn { cursor: pointer; transition: opacity 0.2s; }
+        .lang-btn.active { font-weight: bold; text-decoration: underline; color: #009FE3; }
+        .lang-btn:hover { opacity: 0.8; }
+        
+        /* Loading spinner para el botón */
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="min-h-screen bg-white font-sans text-gray-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- --- HERO SECTION --- -->
+    <header class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                
+                <!-- SVG Fondo -->
+                <svg class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <polygon points="50,0 100,0 50,100 0,100" />
+                </svg>
+
+                <!-- HEADER SUPERIOR: LOGO + IDIOMAS -->
+                <div class="pt-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <!-- LOGO (BDiR MARESME) -->
+                    <div class="flex items-center">
+                        <div class="text-2xl font-bold tracking-tighter text-bdir-blue font-title">
+                            BDiR <span class="font-light text-gray-500 ml-1">Maresme</span>
+                        </div>
+                    </div>
+                    
+                    <!-- SELECTOR DE IDIOMA -->
+                    <div class="flex space-x-2 text-sm font-semibold text-gray-500 z-50 relative">
+                        <button onclick="changeLanguage('es')" id="btn-es" class="lang-btn active">ES</button>
+                        <span>|</span>
+                        <button onclick="changeLanguage('ca')" id="btn-ca" class="lang-btn">CA</button>
+                    </div>
+                </div>
+
+                <main class="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block xl:inline" data-i18n="hero_title_1">Transforma tu alimentación.</span>
+                            <span class="block text-bdir-blue xl:inline" data-i18n="hero_title_2">Mejora tu salud integral.</span>
+                        </h1>
+                        <p class="mt-3 text-base text-gray-600 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0" data-i18n="hero_subtitle">
+                            El servicio de dietética en Premià de Dalt para quienes buscan **perder peso de forma sostenible**, mejorar el rendimiento o equilibrar su digestión.
+                        </p>
+                        
+                        <!-- Botón Móvil -->
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start lg:hidden">
+                            <a href="#formulario" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-bdir-blue hover-bg-bdir-dark md:py-4 md:text-lg md:px-10 shadow-lg transition-all" data-i18n="mobile_cta">
+                                Agenda tu Asesoría Gratis
+                            </a>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- IMAGEN HERO Y CONTENEDOR FORMULARIO -->
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gray-100 flex items-center justify-center relative h-96 lg:h-auto">
+            <!-- Imagen de fondo -->
+            <div class="absolute inset-0 w-full h-full">
+                <img class="h-full w-full object-cover opacity-90" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop" alt="Mesa con plato de comida saludable y cuaderno de planificación">
+                <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:via-transparent"></div>
+            </div>
+
+            <!-- FORMULARIO FLOTANTE -->
+            <div id="formulario" class="relative z-20 w-full max-w-md px-4 py-10 lg:mr-12">
+                <div class="bg-white rounded-xl shadow-2xl p-6 border-t-4 border-bdir-blue">
+                    
+                    <!-- Vista del Formulario -->
+                    <div id="form-view">
+                        <h3 class="text-xl font-bold text-gray-900 text-center mb-2 font-title" data-i18n="form_title">
+                            Asesoría Nutricional Gratuita
+                        </h3>
+                        <p class="text-sm text-gray-600 text-center mb-6" data-i18n="form_subtitle">
+                            Te llamamos para ofrecerte una sesión de **30 minutos sin compromiso** con nuestro dietista-nutricionista.
+                        </p>
+                        
+                        <!-- FORMULARIO ACTUALIZADO PARA ENVÍO REAL -->
+                        <form onsubmit="submitForm(event)" class="space-y-4">
+                            <!-- Campos Ocultos de Configuración FormSubmit -->
+                            <input type="hidden" name="_subject" value="Nuevo Lead Nutrición - Landing Page">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+
+                            <div>
+                                <label for="name" class="sr-only" data-i18n="label_name">Nombre y Apellidos</label>
+                                <input type="text" id="name" name="nombre" required placeholder="Nombre y Apellidos" class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition-colors ring-1 ring-transparent focus:ring-2" data-i18n-placeholder="placeholder_name">
+                            </div>
+                            <div>
+                                <label for="phone" class="sr-only" data-i18n="label_phone">Teléfono Móvil</label>
+                                <input type="tel" id="phone" name="telefono" required placeholder="Teléfono Móvil" class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition-colors ring-1 ring-transparent focus:ring-2" data-i18n-placeholder="placeholder_phone">
+                            </div>
+                            <div>
+                                <label for="email" class="sr-only" data-i18n="label_email">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" required placeholder="Correo Electrónico" class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition-colors ring-1 ring-transparent focus:ring-2" data-i18n-placeholder="placeholder_email">
+                            </div>
+                            <!-- Preferencia de contacto -->
+                            <div>
+                                <label for="contact_preference" class="sr-only" data-i18n="label_contact_pref">Forma de contacto preferida</label>
+                                <select id="contact_preference" name="preferencia_contacto" class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition-colors ring-1 ring-transparent focus:ring-2 cursor-pointer">
+                                    <option value="" disabled selected data-i18n="placeholder_contact_pref">¿Cómo prefieres que te contactemos?</option>
+                                    <option value="phone" data-i18n="option_phone">Llamada telefónica</option>
+                                    <option value="whatsapp" data-i18n="option_whatsapp">WhatsApp</option>
+                                    <option value="email" data-i18n="option_email">Email</option>
+                                </select>
+                            </div>
+
+                            <button id="submit-btn" type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-bdir-blue hover-bg-bdir-dark focus:outline-none focus:ring-2 focus:ring-offset-2 ring-bdir-blue uppercase tracking-wide transition-transform transform hover:scale-105 font-title">
+                                <span data-i18n="form_button">QUIERO MI ASESORÍA GRATIS >></span>
+                            </button>
+                            <p class="text-xs text-center text-gray-400 mt-2" data-i18n="form_privacy">
+                                Tu privacidad es importante. No compartiremos tus datos.
+                            </p>
+                        </form>
+                    </div>
+
+                    <!-- Vista de Éxito -->
+                    <div id="success-view" class="hidden text-center py-10">
+                        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                            <i data-lucide="check-circle" class="h-8 w-8 text-green-600"></i>
+                        </div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 font-title" data-i18n="success_title">¡Solicitud Recibida!</h3>
+                        <p class="mt-2 text-sm text-gray-500" data-i18n="success_msg">
+                            Nos pondremos en contacto contigo muy pronto para agendar tu asesoría nutricional.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- --- BENEFICIOS SECTION --- -->
+    <section class="py-16 bg-[#F5F5F5]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    <span data-i18n="benefits_title_1">De la frustración a la acción</span> <br class="hidden sm:block"/>
+                    <span class="text-gray-500 text-2xl font-normal" data-i18n="benefits_title_2">3 pilares de nuestro éxito</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1: Pérdida de Peso Sostenible -->
+                <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
+                        <i data-lucide="scale" class="h-8 w-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_1_title">Planificación Basada en Evidencia</h3>
+                    <p class="text-gray-600 leading-relaxed" data-i18n="benefit_1_desc">
+                        Diseñamos dietas realistas y sostenibles, huyendo de los mitos y el "efecto rebote". Aprende a comer de forma inteligente para siempre.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Nutrición Deportiva -->
+                <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
+                        <i data-lucide="dumbbell" class="h-8 w-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_2_title">Nutricionista Deportivo</h3>
+                    <p class="text-gray-600 leading-relaxed" data-i18n="benefit_2_desc">
+                        Maximiza tu rendimiento, mejora la recuperación y optimiza tu composición corporal. Planes específicos para deportes de resistencia o fuerza.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Salud Digestiva -->
+                <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
+                        <i data-lucide="soup" class="h-8 w-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_3_title">Digestión y Comportamiento</h3>
+                    <p class="text-gray-600 leading-relaxed" data-i18n="benefit_3_desc">
+                        Ayuda con patologías digestivas (colon irritable, intolerancias) y trabajo de la relación emocional con la comida, sin dietas restrictivas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- SOCIAL PROOF / TESTIMONIAL --- -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg text-gray-500 font-medium mb-8 italic" data-i18n="social_proof_intro">
+                "El centro definitivo para tu salud y nutrición en el Maresme."
+            </p>
+            
+            <div class="bg-blue-50 rounded-2xl p-8 shadow-inner relative overflow-hidden">
+                <div class="absolute top-0 left-0 opacity-10 transform -translate-x-4 -translate-y-4">
+                    <i data-lucide="star" class="h-32 w-32 text-bdir-blue fill-current"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex justify-center mb-4 space-x-1">
+                        <i data-lucide="star" class="h-6 w-6 text-yellow-400 fill-current"></i>
+                        <i data-lucide="star" class="h-6 w-6 text-yellow-400 fill-current"></i>
+                        <i data-lucide="star" class="h-6 w-6 text-yellow-400 fill-current"></i>
+                        <i data-lucide="star" class="h-6 w-6 text-yellow-400 fill-current"></i>
+                        <i data-lucide="star" class="h-6 w-6 text-yellow-400 fill-current"></i>
+                    </div>
+                    <blockquote class="text-xl text-gray-800 font-medium mb-6" data-i18n="testimonial_quote">
+                        "Gracias a la asesoría he conseguido bajar 8 kg de peso y lo más importante: he aprendido a mantenerlos sin hacer dietas milagro. ¡Adiós efecto rebote!"
+                    </blockquote>
+                    <div class="flex items-center justify-center space-x-4">
+                        <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 font-bold">
+                            MS
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold text-gray-900">Marta S.</div>
+                            <div class="text-sm text-gray-500">Premià de Dalt</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CTA FINAL --- -->
+    <section class="relative py-20 bg-bdir-blue">
+        <div class="absolute inset-0 overflow-hidden">
+             <div class="absolute -top-24 -left-24 w-96 h-96 bg-white opacity-10 rounded-full mix-blend-overlay blur-3xl"></div>
+             <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-900 opacity-20 rounded-full mix-blend-overlay blur-3xl"></div>
+        </div>
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-6" data-i18n="cta_final_title">
+                ¿Quieres resultados de verdad en tu peso y energía?
+            </h2>
+            <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto" data-i18n="cta_final_desc">
+                Empieza a comer de forma inteligente y consigue los objetivos de salud que siempre has deseado. Te acompañamos en el proceso.
+            </p>
+            <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="inline-block bg-white py-4 px-10 border border-transparent rounded-md shadow-lg text-lg font-bold text-bdir-blue hover:bg-gray-50 hover-text-bdir-dark transition-all transform hover:-translate-y-1 uppercase cursor-pointer font-title" data-i18n="cta_final_btn">
+                QUIERO MI ASESORÍA NUTRICIONAL GRATUITA
+            </button>
+        </div>
+    </section>
+
+    <!-- --- FOOTER --- -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <!-- LOGO FOOTER (BDiR MARESME) -->
+                    <div class="text-xl font-bold tracking-tighter text-bdir-blue font-title">
+                        BDiR <span class="font-light text-gray-500 ml-1 text-lg">Maresme</span>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-gray-500 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="map-pin" class="h-5 w-5 text-bdir-blue"></i>
+                        <span>Av. Pedrablanca S/N Local 7</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="phone" class="h-5 w-5 text-bdir-blue"></i>
+                        <span>93 754 87 47</span>
+                    </div>
+                    <!-- Enlace WhatsApp actualizado con ID para traducción -->
+                    <a id="whatsapp-link-footer" href="https://wa.me/34682334580?text=Quiero%20solicitar%20mi%20asesoría%20nutricional%20gratuita" target="_blank" class="flex items-center space-x-2 hover:text-bdir-blue transition-colors group">
+                        <i data-lucide="message-circle" class="h-5 w-5 text-bdir-blue group-hover:scale-110 transition-transform"></i>
+                        <span class="font-semibold">682 334 580</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
+                <!-- Redes Sociales (Facebook e Instagram) -->
+                <div class="flex space-x-6 md:order-3 mt-4 md:mt-0 justify-center md:justify-end">
+                    <a href="https://www.facebook.com/bdirmaresme/?locale=es_ES" target="_blank" class="text-gray-400 hover:text-bdir-blue transition-colors">
+                        <span class="sr-only">Facebook</span>
+                        <i data-lucide="facebook" class="h-6 w-6"></i>
+                    </a>
+                    <a href="https://www.instagram.com/bdirmaresme/?hl=es" target="_blank" class="text-gray-400 hover:text-bdir-blue transition-colors">
+                        <span class="sr-only">Instagram</span>
+                        <i data-lucide="instagram" class="h-6 w-6"></i>
+                    </a>
+                </div>
+
+                <!-- Enlaces Legales -->
+                <div class="flex space-x-6 md:order-2 justify-center mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-gray-500" data-i18n="footer_privacy">Política de Privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500" data-i18n="footer_legal">Aviso Legal</a>
+                </div>
+
+                <!-- Copyright (BDiR Maresme) -->
+                <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1 text-center md:text-left" data-i18n="footer_rights">
+                    &copy; 2025 BDiR Maresme. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT: LOGICA + TRADUCCIONES -->
+    <script>
+        // 2. CONFIGURACIÓN DEL EMAIL (IMPORTANTE)
+        const emailDestino = "cm.bdirmaresme@gmail.com"; // <--- CAMBIA ESTO POR EL EMAIL REAL DE NUTRICIÓN
+        
+        // 3. Diccionario de Traducciones
+        const translations = {
+            es: {
+                hero_title_1: "Transforma tu alimentación.",
+                hero_title_2: "Mejora tu salud integral.",
+                hero_subtitle: "El servicio de dietética en Premià de Dalt para quienes buscan **perder peso de forma sostenible**, mejorar el rendimiento o equilibrar su digestión.",
+                mobile_cta: "Agenda tu Asesoría Gratis",
+                form_title: "Asesoría Nutricional Gratuita",
+                form_subtitle: "Te llamamos para ofrecerte una sesión de **30 minutos sin compromiso** con nuestro dietista-nutricionista.",
+                label_name: "Nombre y Apellidos",
+                placeholder_name: "Nombre y Apellidos",
+                label_phone: "Teléfono Móvil",
+                placeholder_phone: "Teléfono Móvil",
+                label_email: "Correo Electrónico",
+                placeholder_email: "Correo Electrónico",
+                
+                label_contact_pref: "Forma de contacto preferida",
+                placeholder_contact_pref: "¿Cómo prefieres que te contactemos?",
+                option_phone: "Llamada telefónica",
+                option_whatsapp: "WhatsApp",
+                option_email: "Email",
+
+                form_button: "QUIERO MI ASESORÍA GRATIS >>",
+                form_sending: "ENVIANDO...",
+                form_privacy: "Tu privacidad es importante. No compartiremos tus datos.",
+                success_title: "¡Solicitud Recibida!",
+                success_msg: "Nos pondremos en contacto contigo muy pronto para agendar tu asesoría nutricional.",
+                benefits_title_1: "De la frustración a la acción",
+                benefits_title_2: "(3 pilares de nuestro éxito)",
+                benefit_1_title: "Planificación Basada en Evidencia",
+                benefit_1_desc: "Diseñamos dietas realistas y sostenibles, huyendo de los mitos y el \"efecto rebote\". Aprende a comer de forma inteligente para siempre.",
+                benefit_2_title: "Nutricionista Deportivo",
+                benefit_2_desc: "Maximiza tu rendimiento, mejora la recuperación y optimiza tu composición corporal. Planes específicos para deportes de resistencia o fuerza.",
+                benefit_3_title: "Digestión y Comportamiento",
+                benefit_3_desc: "Ayuda con patologías digestivas (colon irritable, intolerancias) y trabajo de la relación emocional con la comida, sin dietas restrictivas.",
+                social_proof_intro: "\"El centro definitivo para tu salud y nutrición en el Maresme.\"",
+                testimonial_quote: "\"Gracias a la asesoría he conseguido bajar 8 kg de peso y lo más importante: he aprendido a mantenerlos sin hacer dietas milagro. ¡Adiós efecto rebote!\"",
+                cta_final_title: "¿Quieres resultados de verdad en tu peso y energía?",
+                cta_final_desc: "Empieza a comer de forma inteligente y consigue los objetivos de salud que siempre has deseado. Te acompañamos en el proceso.",
+                cta_final_btn: "QUIERO MI ASESORÍA NUTRICIONAL GRATUITA",
+                footer_privacy: "Política de Privacidad",
+                footer_legal: "Aviso Legal",
+                footer_rights: "&copy; 2025 BDiR Maresme. Todos los derechos reservados.",
+                whatsapp_message: "Quiero solicitar mi asesoría nutricional gratuita"
+            },
+            ca: {
+                hero_title_1: "Transforma la teva alimentació.",
+                hero_title_2: "Millora la teva salut integral.",
+                hero_subtitle: "El servei de dietètica a Premià de Dalt per a qui busca **baixar de pes de forma sostenible**, millorar el rendiment o equilibrar la seva digestió.",
+                mobile_cta: "Agenda la teva Assessoria Gratuïta",
+                form_title: "Assessoria Nutricional Gratuïta",
+                form_subtitle: "Et truquem per oferir-te una sessió de **30 minuts sense compromís** amb el nostre dietista-nutricionista.",
+                label_name: "Nom i Cognoms",
+                placeholder_name: "Nom i Cognoms",
+                label_phone: "Telèfon Mòbil",
+                placeholder_phone: "Telèfon Mòbil",
+                label_email: "Correu Electrònic",
+                placeholder_email: "Correu Electrònic",
+                
+                label_contact_pref: "Forma de contacte preferida",
+                placeholder_contact_pref: "Com prefereixes que et contactem?",
+                option_phone: "Trucada telefònica",
+                option_whatsapp: "WhatsApp",
+                option_email: "Correu electrònic",
+
+                form_button: "VULL LA MEVA ASSESSORIA GRATUÏTA >>",
+                form_sending: "ENVIANT...",
+                form_privacy: "La teva privacitat és important. No compartirem les teves dades.",
+                success_title: "Sol·licitud Rebuda!",
+                success_msg: "Ens posarem en contacte amb tu ben aviat per agendar la teva assessoria nutricional.",
+                benefits_title_1: "De la frustració a l'acció",
+                benefits_title_2: "(3 pilars del nostre èxit)",
+                benefit_1_title: "Planificació Basada en Evidència",
+                benefit_1_desc: "Dissenyem dietes realistes i sostenibles, fugint dels mites i l'\"efecte rebot\". Aprèn a menjar de forma intel·ligent per sempre.",
+                benefit_2_title: "Nutricionista Esportiu",
+                benefit_2_desc: "Maximitza el teu rendiment, millora la recuperació i optimitza la teva composició corporal. Plans específics per a esports de resistència o força.",
+                benefit_3_title: "Digestió i Comportament",
+                benefit_3_desc: "Ajuda amb patologies digestives (colon irritable, intoleràncies) i treball de la relació emocional amb el menjar, sense dietes restrictives.",
+                social_proof_intro: "\"El centre definitiu per a la teva salut i nutrició al Maresme.\"",
+                testimonial_quote: "\"Gràcies a l'assessoria he aconseguit baixar 8 kg de pes i el més important: he après a mantenir-los sense fer dietes miracle. Adéu efecte rebot!\"",
+                cta_final_title: "Vols resultats de veritat en el teu pes i energia?",
+                cta_final_desc: "Comença a menjar de forma intel·ligent i aconsegueix els objectius de salut que sempre has desitjat. T'acompanyem en el procés.",
+                cta_final_btn: "VULL LA MEVA ASSESSORIA NUTRICIONAL GRATUÏTA",
+                footer_privacy: "Política de Privacitat",
+                footer_legal: "Avís Legal",
+                footer_rights: "&copy; 2025 BDiR Maresme. Tots els drets reservats.",
+                whatsapp_message: "Vull sol·licitar la meva assessoria nutricional gratuïta"
+            }
+        };
+
+        // 4. Función para cambiar el idioma
+        function changeLanguage(lang) {
+            // A. Actualizar todos los textos con data-i18n
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    // Usar innerHTML para permitir etiquetas HTML como <span> o **
+                    el.innerHTML = translations[lang][key]; 
+                }
+            });
+
+            // B. Actualizar placeholders
+            const inputs = document.querySelectorAll('[data-i18n-placeholder]');
+            inputs.forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
+            // C. Actualizar opciones del select
+            const options = document.querySelectorAll('option[data-i18n]');
+             options.forEach(op => {
+                const key = op.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    op.text = translations[lang][key];
+                }
+            });
+
+            // D. Actualizar el enlace de WhatsApp
+            const whatsappLink = document.getElementById('whatsapp-link-footer');
+            const message = translations[lang]['whatsapp_message'];
+            if (whatsappLink && message) {
+                const encodedMessage = encodeURIComponent(message);
+                whatsappLink.href = `https://wa.me/34682334580?text=${encodedMessage}`;
+            }
+
+            // E. Actualizar botones activos y lang
+            document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+            document.getElementById('btn-ca').classList.toggle('active', lang === 'ca');
+            document.documentElement.lang = lang;
+        }
+
+        // 5. FUNCIÓN DE ENVÍO REAL (AJAX a FormSubmit)
+        function submitForm(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const originalText = document.documentElement.lang === 'ca' ? translations.ca.form_button : translations.es.form_button;
+            const sendingText = document.documentElement.lang === 'ca' ? translations.ca.form_sending : translations.es.form_sending;
+            
+            // 1. Mostrar estado de carga
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner"></span> ${sendingText}`;
+
+            // 2. Preparar datos
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // 3. Enviar a FormSubmit
+            fetch(`https://formsubmit.co/ajax/${emailDestino}`, {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 4. Éxito: Mostrar pantalla de confirmación
+                document.getElementById('form-view').classList.add('hidden');
+                document.getElementById('success-view').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.log(error);
+                // Aquí deberías usar un modal o un elemento en el DOM para mostrar el error, no alert()
+                // Nota: Por simplicidad y dado que la UI no tiene un modal de error, restauramos el botón.
+                alert("Hubo un error al enviar. Por favor, inténtalo de nuevo o llámanos.");
+                btn.disabled = false;
+                btn.innerHTML = `<span data-i18n="form_button">${originalText}</span>`;
+            });
+        }
+        
+        // 6. INICIALIZACIÓN: Aseguramos que los iconos y el idioma inicial se carguen correctamente
+        document.addEventListener('DOMContentLoaded', () => {
+            // FIX SAFARI: Asegura que Lucide (los iconos) se cargue después de que el DOM esté listo.
+            lucide.createIcons();
+            
+            // Establece el idioma por defecto (ES) y actualiza el enlace de WhatsApp
+            changeLanguage(document.documentElement.lang || 'es');
+        });
+    </script>
+</body>
+</html>
