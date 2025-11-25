@@ -63,8 +63,8 @@
 
                 <!-- HEADER SUPERIOR: LOGO + IDIOMAS -->
                 <div class="pt-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <!-- LOGO (BDiR MARESME) -->
-                    <div class="flex items-center">
+                    <!-- LOGO (BDiR MARESME) - ENLACE AL HOME (CORREGIDO) -->
+                    <div class="flex items-center cursor-pointer" onclick="redirectToHome()">
                         <div class="text-2xl font-bold tracking-tighter text-bdir-blue font-title">
                             BDiR <span class="font-light text-gray-500 ml-1">Maresme</span>
                         </div>
@@ -103,7 +103,7 @@
         <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gray-100 flex items-center justify-center relative h-96 lg:h-auto">
             <!-- Imagen de fondo -->
             <div class="absolute inset-0 w-full h-full">
-                <img class="h-full w-full object-cover opacity-90" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop" alt="Mesa con plato de comida saludable y cuaderno de planificación">
+                <img class="h-full w-full object-cover opacity-90" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop" onerror="this.onerror=null; this.src='https://placehold.co/1000x800/2563EB/ffffff?text=Imagen+Salud+y+Nutricion';" alt="Mesa con plato de comida saludable y cuaderno de planificación">
                 <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:via-transparent"></div>
             </div>
 
@@ -288,10 +288,14 @@
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-gray-500 text-sm">
-                    <div class="flex items-center space-x-2">
-                        <i data-lucide="map-pin" class="h-5 w-5 text-bdir-blue"></i>
-                        <span>Av. Pedrablanca S/N Local 7</span>
-                    </div>
+                    <!-- CONTENEDOR DE DIRECCIÓN CON ACCIÓN DE MAPA (CORREGIDO: BÚSQUEDA por "BDiR Maresme") -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=BDiR+Maresme"
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="flex items-center space-x-2 hover:text-bdir-blue transition-colors group cursor-pointer">
+                        <i data-lucide="map-pin" class="h-5 w-5 text-bdir-blue group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">Av. Pedrablanca S/N Local 7</span>
+                    </a>
                     <div class="flex items-center space-x-2">
                         <i data-lucide="phone" class="h-5 w-5 text-bdir-blue"></i>
                         <span>93 754 87 47</span>
@@ -320,7 +324,7 @@
                 <!-- Enlaces Legales -->
                 <div class="flex space-x-6 md:order-2 justify-center mt-4 md:mt-0">
                     <a href="#" class="text-gray-400 hover:text-gray-500" data-i18n="footer_privacy">Política de Privacidad</a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500" data-i18n="footer_legal">Aviso Legal</a>
+                    <a href="#" class="class="text-gray-400 hover:text-gray-500" data-i18n="footer_legal">Aviso Legal</a>
                 </div>
 
                 <!-- Copyright (BDiR Maresme) -->
@@ -333,6 +337,22 @@
 
     <!-- JAVASCRIPT: LOGICA + TRADUCCIONES -->
     <script>
+        // URL de la landing de BDiR Home
+        const BDIR_HOME_URL = 'https://cmbdirmaresme-bot.github.io/landing-bdir-home/#';
+
+        // 1. FUNCIÓN AÑADIDA PARA REDIRECCIÓN (Logo superior)
+        function redirectToHome() {
+            // Utilizamos window.location.href directamente para asegurar la navegación
+            window.location.href = BDIR_HOME_URL;
+        }
+
+        // Inicializa Lucide icons después de que la página se cargue
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
         // 2. CONFIGURACIÓN DEL EMAIL (IMPORTANTE)
         const emailDestino = "cm.bdirmaresme@gmail.com"; // <--- CAMBIA ESTO POR EL EMAIL REAL DE NUTRICIÓN
         
@@ -434,7 +454,7 @@
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
                     // Usar innerHTML para permitir etiquetas HTML como <span> o **
-                    el.innerHTML = translations[lang][key]; 
+                    el.innerHTML = translations[lang][key];  
                 }
             });
 
@@ -470,13 +490,26 @@
             document.documentElement.lang = lang;
         }
 
+        // Inicializa el idioma al cargar la página (ES por defecto)
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('es');
+            // Re-renderizar iconos de lucide después de posibles cambios de idioma iniciales
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
         // 5. FUNCIÓN DE ENVÍO REAL (AJAX a FormSubmit)
         function submitForm(e) {
             e.preventDefault();
             
             const btn = document.getElementById('submit-btn');
-            const originalText = document.documentElement.lang === 'ca' ? translations.ca.form_button : translations.es.form_button;
-            const sendingText = document.documentElement.lang === 'ca' ? translations.ca.form_sending : translations.es.form_sending;
+            const formView = document.getElementById('form-view');
+            const successView = document.getElementById('success-view');
+
+            const currentLang = document.documentElement.lang;
+            const originalText = translations[currentLang].form_button;
+            const sendingText = translations[currentLang].form_sending;
             
             // 1. Mostrar estado de carga
             btn.disabled = true;
@@ -484,41 +517,47 @@
 
             // 2. Preparar datos
             const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-            
+            // Incluir el origen para el seguimiento
+            formData.append('Origen', 'Landing Nutrición');
+            formData.append('Idioma', currentLang);
+
             // 3. Enviar a FormSubmit
             fetch(`https://formsubmit.co/ajax/${emailDestino}`, {
                 method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(data)
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(formData))
+            })
+            .then(response => {
+                // Simular un pequeño retraso para que el usuario vea el spinner
+                return new Promise(resolve => setTimeout(() => resolve(response), 800));
             })
             .then(response => response.json())
             .then(data => {
-                // 4. Éxito: Mostrar pantalla de confirmación
-                document.getElementById('form-view').classList.add('hidden');
-                document.getElementById('success-view').classList.remove('hidden');
+                // Verificar si la respuesta es exitosa
+                if (data.success) {
+                    // Mostrar vista de éxito
+                    formView.classList.add('hidden');
+                    successView.classList.remove('hidden');
+                    // Desplazar a la parte superior del formulario para ver el éxito
+                    document.getElementById('formulario').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    console.error("Error FormSubmit:", data);
+                    // Ocultar spinner y restaurar botón
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    // Aquí se debería mostrar un mensaje de error al usuario, pero evitamos `alert()`
+                    console.error('Ha ocurrido un error al enviar el formulario. Por favor, inténtalo de nuevo.');
+                }
             })
             .catch(error => {
-                console.log(error);
-                // Aquí deberías usar un modal o un elemento en el DOM para mostrar el error, no alert()
-                // Nota: Por simplicidad y dado que la UI no tiene un modal de error, restauramos el botón.
-                alert("Hubo un error al enviar. Por favor, inténtalo de nuevo o llámanos.");
+                console.error('Error de red:', error);
+                // Ocultar spinner y restaurar botón
                 btn.disabled = false;
-                btn.innerHTML = `<span data-i18n="form_button">${originalText}</span>`;
+                btn.innerHTML = originalText;
+                // Mostrar un mensaje de error alternativo
+                console.error('Ha ocurrido un error de conexión. Inténtalo de nuevo o contáctanos por teléfono.');
             });
         }
-        
-        // 6. INICIALIZACIÓN: Aseguramos que los iconos y el idioma inicial se carguen correctamente
-        document.addEventListener('DOMContentLoaded', () => {
-            // FIX SAFARI: Asegura que Lucide (los iconos) se cargue después de que el DOM esté listo.
-            lucide.createIcons();
-            
-            // Establece el idioma por defecto (ES) y actualiza el enlace de WhatsApp
-            changeLanguage(document.documentElement.lang || 'es');
-        });
     </script>
 </body>
 </html>
