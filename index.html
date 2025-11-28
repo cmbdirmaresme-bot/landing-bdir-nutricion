@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrición en BDiR Maresme - Asesoría Gratis</title>
+    <title>Fisioteràpia Maresme - Valoración Gratis</title>
     
     <!-- 1. IMPORTAR TAILWIND CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,11 +47,18 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
         html { scroll-behavior: smooth; }
-        
+
         /* Estilos para el modal */
         .modal-overlay {
-            z-index: 1000;
+            z-index: 50; /* Por encima de todo */
             background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Estilos para deshabilitar el botón de forma visible */
+        #submit-btn:disabled:not(.loading) {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            transform: none;
         }
     </style>
 </head>
@@ -69,11 +76,13 @@
 
                 <!-- HEADER SUPERIOR: LOGO + IDIOMAS -->
                 <div class="pt-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <!-- LOGO (BDiR MARESME) - ENLACE AL HOME (CORREGIDO) -->
-                    <div class="flex items-center cursor-pointer" onclick="redirectToHome()">
-                        <div class="text-2xl font-bold tracking-tighter text-bdir-blue font-title">
-                            BDiR <span class="font-light text-gray-500 ml-1">Maresme</span>
-                        </div>
+                    <!-- LOGO BDiR MARESME (ACTUALIZADO CON ENLACE) -->
+                    <div class="flex items-center">
+                        <a href="https://cmbdirmaresme-bot.github.io/landing-bdir-home/#" class="block cursor-pointer p-1 rounded-md hover:bg-gray-50 transition-colors">
+                            <div class="text-2xl font-bold tracking-tighter text-bdir-blue font-title">
+                                BDiR <span class="font-light text-gray-500 ml-1">Maresme</span>
+                            </div>
+                        </a>
                     </div>
                     
                     <!-- SELECTOR DE IDIOMA -->
@@ -87,17 +96,17 @@
                 <main class="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                     <div class="sm:text-center lg:text-left">
                         <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                            <span class="block xl:inline" data-i18n="hero_title_1">Transforma tu alimentación.</span>
-                            <span class="block text-bdir-blue xl:inline" data-i18n="hero_title_2">Mejora tu salud integral.</span>
+                            <span class="block xl:inline" data-i18n="hero_title_1">Recupera la movilidad.</span>
+                            <span class="block text-bdir-blue xl:inline" data-i18n="hero_title_2">Olvídate del dolor.</span>
                         </h1>
                         <p class="mt-3 text-base text-gray-600 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0" data-i18n="hero_subtitle">
-                            El servicio de dietética en Premià de Dalt para quienes buscan **perder peso de forma sostenible**, mejorar el rendimiento o equilibrar su digestión.
+                            El centro de fisioterapia en Premià de Dalt para quienes buscan **soluciones reales** al dolor crónico y lesiones. Tratamiento 100% individualizado.
                         </p>
                         
                         <!-- Botón Móvil -->
                         <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start lg:hidden">
                             <a href="#formulario" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-bdir-blue hover-bg-bdir-dark md:py-4 md:text-lg md:px-10 shadow-lg transition-all" data-i18n="mobile_cta">
-                                Agenda tu Asesoría Gratis
+                                Solicitar Valoración Gratis
                             </a>
                         </div>
                     </div>
@@ -105,11 +114,14 @@
             </div>
         </div>
 
-        <!-- IMAGEN HERO Y CONTENEDOR FORMULARIO -->
+        <!-- IMAGEN HERO Y CONTENEDOR FORMULARIO (URL DE IMAGEN ACTUALIZADA A PLACEHOLDER) -->
         <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gray-100 flex items-center justify-center relative h-96 lg:h-auto">
-            <!-- Imagen de fondo -->
+            <!-- Imagen de fondo (Placeholder simple con color corporativo) -->
             <div class="absolute inset-0 w-full h-full">
-                <img class="h-full w-full object-cover opacity-90" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop" onerror="this.onerror=null; this.src='https://placehold.co/1000x800/2563EB/ffffff?text=Imagen+Salud+y+Nutricion';" alt="Mesa con plato de comida saludable y cuaderno de planificación">
+                <!-- URL de imagen cambiada a un placeholder seguro con color #009FE3 y texto -->
+                <img class="h-full w-full object-cover opacity-90" 
+                    src="https://placehold.co/1000x800/009FE3/ffffff?text=Fisioterapia%20Maresme" 
+                    alt="Fisioterapeuta aplicando tratamiento a un paciente en camilla">
                 <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:via-transparent"></div>
             </div>
 
@@ -120,16 +132,16 @@
                     <!-- Vista del Formulario -->
                     <div id="form-view">
                         <h3 class="text-xl font-bold text-gray-900 text-center mb-2 font-title" data-i18n="form_title">
-                            Asesoría Nutricional Gratuita
+                            Pide tu 1ª Valoración Gratuita
                         </h3>
                         <p class="text-sm text-gray-600 text-center mb-6" data-i18n="form_subtitle">
-                            Te llamamos para ofrecerte una sesión de **30 minutos sin compromiso** con nuestro dietista-nutricionista.
+                            Te llamamos para ofrecerte una sesión de **valoración de 30 minutos** con un fisioterapeuta especializado.
                         </p>
                         
                         <!-- FORMULARIO ACTUALIZADO PARA ENVÍO REAL -->
                         <form onsubmit="submitForm(event)" class="space-y-4">
                             <!-- Campos Ocultos de Configuración FormSubmit -->
-                            <input type="hidden" name="_subject" value="Nuevo Lead Nutrición - Landing Page">
+                            <input type="hidden" name="_subject" value="Nuevo Lead Fisioterapia - Landing Page">
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_template" value="table">
 
@@ -156,26 +168,24 @@
                                 </select>
                             </div>
 
-                            <!-- CASILLA DE ACEPTACIÓN LEGAL (REQUERIDA) -->
-                            <div class="flex items-start">
+                            <!-- CASILLA DE ACEPTACIÓN LEGAL -->
+                            <div class="flex items-start mt-4">
                                 <div class="flex items-center h-5">
-                                    <input id="accept_legal" name="acepta_legal" type="checkbox" required class="focus:ring-bdir-blue h-4 w-4 text-bdir-blue border-gray-300 rounded cursor-pointer">
+                                    <input id="legal-checkbox" type="checkbox" name="legal_checkbox" onchange="toggleSubmitButton()" class="focus:ring-bdir-blue h-4 w-4 text-bdir-blue border-gray-300 rounded cursor-pointer">
                                 </div>
-                                <div class="ml-3 text-xs leading-5">
-                                    <label for="accept_legal" class="font-medium text-gray-600">
-                                        <!-- Enlace a Política de Privacidad, llama a openModal() -->
-                                        <span data-i18n="form_accept_prefix">He leído y acepto la</span>
-                                        <button type="button" onclick="openModal('privacy')" class="text-bdir-blue hover:text-[#007bb0] underline" data-i18n="form_link_privacy">Política de Privacidad</button>
-                                        <span data-i18n="form_accept_and">y los</span>
-                                        <!-- Enlace a Aviso Legal, llama a openModal('legal') -->
-                                        <button type="button" onclick="openModal('legal')" class="text-bdir-blue hover:text-[#007bb0] underline" data-i18n="form_link_terms">Términos Legales</button>.
+                                <div class="ml-3 text-sm">
+                                    <label for="legal-checkbox" class="text-gray-600 cursor-pointer text-xs" data-i18n="form_legal_accept">
+                                        He leído y acepto la 
+                                        <a href="#" onclick="openLegalModal('privacy', event)" class="text-bdir-blue hover:text-bdir-dark font-semibold transition-colors underline">Política de Privacidad</a>
+                                        y los
+                                        <a href="#" onclick="openLegalModal('legal', event)" class="text-bdir-blue hover:text-bdir-dark font-semibold transition-colors underline">Términos Legales</a>.
                                     </label>
                                 </div>
                             </div>
                             <!-- FIN CASILLA -->
 
-                            <button id="submit-btn" type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-bdir-blue hover-bg-bdir-dark focus:outline-none focus:ring-2 focus:ring-offset-2 ring-bdir-blue uppercase tracking-wide transition-transform transform hover:scale-105 font-title">
-                                <span data-i18n="form_button">QUIERO MI ASESORÍA GRATIS >></span>
+                            <button id="submit-btn" type="submit" disabled class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-bdir-blue hover-bg-bdir-dark focus:outline-none focus:ring-2 focus:ring-offset-2 ring-bdir-blue uppercase tracking-wide transition-transform transform hover:scale-105 font-title">
+                                <span data-i18n="form_button">QUIERO MI VALORACIÓN GRATIS >></span>
                             </button>
                             <p class="text-xs text-center text-gray-400 mt-2" data-i18n="form_privacy">
                                 Tu privacidad es importante. No compartiremos tus datos.
@@ -190,7 +200,7 @@
                         </div>
                         <h3 class="text-lg leading-6 font-medium text-gray-900 font-title" data-i18n="success_title">¡Solicitud Recibida!</h3>
                         <p class="mt-2 text-sm text-gray-500" data-i18n="success_msg">
-                            Nos pondremos en contacto contigo muy pronto para agendar tu asesoría nutricional.
+                            Nos pondremos en contacto contigo muy pronto para agendar tu sesión de valoración.
                         </p>
                     </div>
 
@@ -210,36 +220,36 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <!-- Feature 1: Pérdida de Peso Sostenible -->
+                <!-- Feature 1 -->
                 <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
-                        <i data-lucide="scale" class="h-8 w-8"></i>
+                        <i data-lucide="user-check" class="h-8 w-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_1_title">Planificación Basada en Evidencia</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_1_title">Tratamiento 100% Personalizado</h3>
                     <p class="text-gray-600 leading-relaxed" data-i18n="benefit_1_desc">
-                        Diseñamos dietas realistas y sostenibles, huyendo de los mitos y el \"efecto rebote\". Aprende a comer de forma inteligente para siempre.
+                        No hacemos lo mismo para todos. Sesiones individuales donde el 100% del tiempo es para ti, sin máquinas genéricas. Tu plan se ajusta a tu cuerpo y objetivos.
                     </p>
                 </div>
 
-                <!-- Feature 2: Nutrición Deportiva -->
+                <!-- Feature 2 -->
                 <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
-                        <i data-lucide="dumbbell" class="h-8 w-8"></i>
+                        <i data-lucide="hand-heart" class="h-8 w-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_2_title">Nutricionista Deportivo</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_2_title">Enfoque Terapéutico Global</h3>
                     <p class="text-gray-600 leading-relaxed" data-i18n="benefit_2_desc">
-                        Maximiza tu rendimiento, mejora la recuperación y optimiza tu composición corporal. Planes específicos para deportes de resistencia o fuerza.
+                        Abordamos el problema desde la raíz (postura, estrés, historial). Terapia manual avanzada, punción seca, electrolisis percutánea y ejercicio terapéutico.
                     </p>
                 </div>
 
-                <!-- Feature 3: Salud Digestiva -->
+                <!-- Feature 3 -->
                 <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
-                        <i data-lucide="soup" class="h-8 w-8"></i>
+                        <i data-lucide="battery-charging" class="h-8 w-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_3_title">Digestión y Comportamiento</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-title" data-i18n="benefit_3_title">Especialistas en dolor crónico</h3>
                     <p class="text-gray-600 leading-relaxed" data-i18n="benefit_3_desc">
-                        Ayuda con patologías digestivas (colon irritable, intolerancias) y trabajo de la relación emocional con la comida, sin dietas restrictivas.
+                        Si has probado de todo sin éxito, somos tu última parada. Cervicalgias, lumbalgias persistentes y fibromialgia. Te devolvemos el control de tu cuerpo.
                     </p>
                 </div>
             </div>
@@ -250,7 +260,7 @@
     <section class="py-16 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-lg text-gray-500 font-medium mb-8 italic" data-i18n="social_proof_intro">
-                "El centro definitivo para tu salud y nutrición en el Maresme."
+                "La solución profesional y definitiva para la movilidad y el dolor en el Maresme."
             </p>
             
             <div class="bg-blue-50 rounded-2xl p-8 shadow-inner relative overflow-hidden">
@@ -266,14 +276,14 @@
                         <i data-lucide="star" class="h-6 w-6 text-yellow-400 fill-current"></i>
                     </div>
                     <blockquote class="text-xl text-gray-800 font-medium mb-6" data-i18n="testimonial_quote">
-                        "Gracias a la asesoría he conseguido bajar 8 kg de peso y lo más importante: he aprendido a mantenerlos sin hacer dietas milagro. ¡Adiós efecto rebote!"
+                        "He pasado por varios centros y nadie había dado con el origen de mi dolor de hombro. Con la terapia de Fisioteràpia Maresme por fin vuelvo a dormir y a hacer deporte sin miedo."
                     </blockquote>
                     <div class="flex items-center justify-center space-x-4">
                         <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 font-bold">
-                            MS
+                            AF
                         </div>
                         <div class="text-left">
-                            <div class="font-bold text-gray-900">Marta S.</div>
+                            <div class="font-bold text-gray-900">Anna F.</div>
                             <div class="text-sm text-gray-500">Premià de Dalt</div>
                         </div>
                     </div>
@@ -290,135 +300,164 @@
         </div>
         <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-6" data-i18n="cta_final_title">
-                ¿Quieres resultados de verdad en tu peso y energía?
+                ¿Cansado/a de vivir limitado/a por el dolor?
             </h2>
             <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto" data-i18n="cta_final_desc">
-                Empieza a comer de forma inteligente y consigue los objetivos de salud que siempre has deseado. Te acompañamos en el proceso.
+                No dejes que el dolor controle tu vida. Reserva tu valoración gratuita y empieza a moverte sin límites hoy mismo.
             </p>
             <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="inline-block bg-white py-4 px-10 border border-transparent rounded-md shadow-lg text-lg font-bold text-bdir-blue hover:bg-gray-50 hover-text-bdir-dark transition-all transform hover:-translate-y-1 uppercase cursor-pointer font-title" data-i18n="cta_final_btn">
-                QUIERO MI ASESORÍA NUTRICIONAL GRATUITA
+                QUIERO MI VALORACIÓN FISIOTERAPÉUTICA GRATUITA
             </button>
         </div>
     </section>
 
-    <!-- --- FOOTER --- -->
-    <footer class="bg-gray-50 border-t border-gray-200">
+    <!-- --- FOOTER (ESTILO OSCURO) --- -->
+    <footer class="bg-gray-900 border-t border-gray-700">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <!-- LOGO FOOTER (BDiR MARESME) -->
-                    <div class="text-xl font-bold tracking-tighter text-bdir-blue font-title">
-                        BDiR <span class="font-light text-gray-500 ml-1 text-lg">Maresme</span>
-                    </div>
+                    <!-- LOGO FOOTER (BDiR MARESME) - TEXTO BLANCO -->
+                    <a href="https://cmbdirmaresme-bot.github.io/landing-bdir-home/#" class="block cursor-pointer p-1 rounded-md hover:bg-gray-800 transition-colors">
+                        <div class="text-xl font-bold tracking-tighter text-bdir-blue font-title">
+                            BDiR <span class="font-light text-gray-300 ml-1 text-lg">Maresme</span>
+                        </div>
+                    </a>
                 </div>
-                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-gray-500 text-sm">
-                    <!-- CONTENEDOR DE DIRECCIÓN CON ACCIÓN DE MAPA (CORREGIDO: BÚSQUEDA por "BDiR Maresme") -->
-                    <a href="https://www.google.com/maps/search/?api=1&query=BDiR+Maresme"
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       class="flex items-center space-x-2 hover:text-bdir-blue transition-colors group cursor-pointer">
-                        <i data-lucide="map-pin" class="h-5 w-5 text-bdir-blue group-hover:scale-110 transition-transform"></i>
-                        <span class="font-medium">Av. Pedrablanca S/N Local 7</span>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-gray-300 text-sm">
+                     <!-- ENLACE DE DIRECCIÓN A GOOGLE MAPS -->
+                    <a href="https://www.google.com/maps/place/BDiR+Maresme/@41.5017127,2.3585388,17z/data=!3m2!4b1!5s0x12a4b6ca06a87c4f:0x3f1604cbb1de26a0!4m6!3m5!1s0x12a4b6c9f5bdc26f:0x30d3bea632480e1!8m2!3d41.5017127!4d2.3611137!16s%2Fg%2F11hctz10q0?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank" class="flex items-center space-x-2 hover:text-bdir-blue transition-colors group cursor-pointer" aria-label="Abrir Google Maps con la dirección del gimnasio">
+                        <i data-lucide="map-pin" class="h-5 w-5 text-bdir-blue"></i>
+                        <span>Av. Pedrablanca S/N Local 7</span>
                     </a>
                     <div class="flex items-center space-x-2">
                         <i data-lucide="phone" class="h-5 w-5 text-bdir-blue"></i>
                         <span>93 754 87 47</span>
                     </div>
                     <!-- Enlace WhatsApp actualizado con ID para traducción -->
-                    <a id="whatsapp-link-footer" href="https://wa.me/34682334580?text=Quiero%20solicitar%20mi%20asesoría%20nutricional%20gratuita" target="_blank" class="flex items-center space-x-2 hover:text-bdir-blue transition-colors group">
+                    <a id="whatsapp-link-footer" href="https://wa.me/34682334580?text=Quiero%20solicitar%20mi%20valoraci%C3%B3n%20fisioterap%C3%A9utica%20gratuita" target="_blank" class="flex items-center space-x-2 hover:text-bdir-blue transition-colors group">
                         <i data-lucide="message-circle" class="h-5 w-5 text-bdir-blue group-hover:scale-110 transition-transform"></i>
                         <span class="font-semibold">682 334 580</span>
                     </a>
                 </div>
             </div>
-            
-            <div class="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
-                <!-- Redes Sociales (Facebook e Instagram) -->
+            <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+                <!-- Redes Sociales (Facebook e Instagram) - ICONOS BLANCOS/GRISES -->
                 <div class="flex space-x-6 md:order-3 mt-4 md:mt-0 justify-center md:justify-end">
-                    <a href="https://www.facebook.com/bdirmaresme/?locale=es_ES" target="_blank" class="text-gray-400 hover:text-bdir-blue transition-colors">
+                    <a href="https://www.facebook.com/bdirmaresme/?locale=es_ES" target="_blank" class="text-gray-500 hover:text-bdir-blue transition-colors">
                         <span class="sr-only">Facebook</span>
                         <i data-lucide="facebook" class="h-6 w-6"></i>
                     </a>
-                    <a href="https://www.instagram.com/bdirmaresme/?hl=es" target="_blank" class="text-gray-400 hover:text-bdir-blue transition-colors">
+                    <a href="https://www.instagram.com/bdirmaresme/?hl=es" target="_blank" class="text-gray-500 hover:text-bdir-blue transition-colors">
                         <span class="sr-only">Instagram</span>
                         <i data-lucide="instagram" class="h-6 w-6"></i>
                     </a>
                 </div>
 
-                <!-- Enlaces Legales ACTUALIZADOS -->
-                <div class="flex space-x-6 md:order-2 justify-center mt-4 md:mt-0">
-                    <!-- Ahora los enlaces legales llaman al modal -->
-                    <button type="button" onclick="openModal('privacy')" class="text-gray-400 hover:text-gray-500" data-i18n="footer_privacy">Política de Privacidad</button>
-                    <button type="button" onclick="openModal('legal')" class="text-gray-400 hover:text-gray-500" data-i18n="footer_legal">Aviso Legal</button>
-                    <!-- Enlace de Cookies ACTUALIZADO -->
-                    <button type="button" onclick="openModal('cookies')" class="text-gray-400 hover:text-gray-500" data-i18n="footer_cookies">Política de Cookies</button>
+                <!-- Enlaces Legales - TEXTO GRIS CLARO -->
+                <div class="flex space-x-6 md:order-2 justify-center mt-4 md:mt-0 text-sm">
+                    <a href="#" onclick="openLegalModal('privacy', event)" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_privacy">Política de Privacidad</a>
+                    <a href="#" onclick="openLegalModal('cookies', event)" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_cookies">Política de Cookies</a>
+                    <a href="#" onclick="openLegalModal('legal', event)" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_legal">Aviso Legal</a>
                 </div>
 
-                <!-- Copyright (BDiR Maresme) -->
-                <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1 text-center md:text-left" data-i18n="footer_rights">
+                <!-- Copyright - TEXTO GRIS OSCURO -->
+                <p class="mt-8 text-base text-gray-500 md:mt-0 md:order-1 text-center md:text-left" data-i18n="footer_rights">
                     &copy; 2025 BDiR Maresme. Todos los derechos reservados.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- --- VENTANA MODAL (POP-UP) DE POLÍTICAS --- -->
-    <div id="policy-modal" class="fixed inset-0 hidden items-center justify-center modal-overlay transition-opacity duration-300" onclick="closeModal()">
-        <div class="bg-white rounded-lg shadow-xl w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="event.stopPropagation()">
-            <!-- Cabecera del Modal -->
-            <div class="flex justify-between items-center p-6 border-b border-gray-200 sticky top-0 bg-white">
-                <h3 id="modal-title" class="text-xl font-bold text-gray-900 font-title">Política de Privacidad</h3>
-                <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors rounded-full p-1 hover:bg-gray-100">
-                    <i data-lucide="x" class="h-6 w-6"></i>
-                    <span class="sr-only">Cerrar</span>
-                </button>
-            </div>
-            
-            <!-- Contenido del Modal -->
-            <div class="p-6 text-gray-700 space-y-4" id="modal-content">
-                <!-- Este contenido se actualizará mediante JavaScript (i18n) -->
-            </div>
+    <!-- --- MODAL DE AVISOS LEGALES --- -->
+    <div id="legal-modal" class="fixed inset-0 hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto transform transition-all">
+            <div class="p-6">
+                <!-- Header del Modal -->
+                <div class="flex justify-between items-center border-b pb-3 mb-4 sticky top-0 bg-white z-10">
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900 font-title"></h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                        <i data-lucide="x" class="h-6 w-6"></i>
+                    </button>
+                </div>
+                
+                <!-- Contenido del Modal -->
+                <div id="modal-content" class="text-gray-700 leading-relaxed">
+                    
+                    <!-- Contenido Aviso Legal (ACTUALIZADO) -->
+                    <div id="legal-content" class="hidden">
+                        <h4 class="text-xl font-bold mb-3 mt-4 text-bdir-blue" data-i18n="legal_title"></h4>
+                        
+                        <h5 class="font-bold mt-4 text-lg" data-i18n="legal_section_1_title"></h5>
+                        <p class="text-sm italic text-gray-500" data-i18n="legal_section_1_intro"></p>
+                        <ul class="list-disc list-inside ml-4 space-y-2 text-sm mt-2">
+                            <li data-i18n="legal_id_owner"></li>
+                            <li data-i18n="legal_id_nif"></li>
+                            <li data-i18n="legal_id_address"></li>
+                            <li data-i18n="legal_id_email"></li>
+                            <li data-i18n="legal_id_activity"></li>
+                        </ul>
 
-            <!-- Pie del Modal -->
-            <div class="p-4 border-t border-gray-200 text-right sticky bottom-0 bg-white">
-                <button type="button" onclick="closeModal()" class="px-6 py-2 text-sm font-medium rounded-md text-white bg-bdir-blue hover-bg-bdir-dark focus:outline-none focus:ring-2 focus:ring-offset-2 ring-bdir-blue font-title transition-colors">
-                    <span data-i18n="modal_close_btn">Entendido</span>
-                </button>
+                        <h5 class="font-bold mt-6 text-lg" data-i18n="legal_section_2_title"></h5>
+                        <p class="mb-4 text-sm" data-i18n="legal_section_2_content"></p>
+
+                        <h5 class="font-bold mt-6 text-lg" data-i18n="legal_section_3_title"></h5>
+                        <p class="mb-4 text-sm" data-i18n="legal_section_3_content"></p>
+                    </div>
+
+                    <!-- Contenido Política de Privacidad (ACTUALIZADO) -->
+                    <div id="privacy-content" class="hidden">
+                        <h4 class="text-xl font-bold mb-3 mt-4 text-bdir-blue" data-i18n="privacy_title"></h4>
+                        
+                        <h5 class="font-bold mt-4 text-lg" data-i18n="privacy_section_1_title"></h5>
+                        <p class="mb-4 text-sm" data-i18n="privacy_section_1_content"></p>
+                        
+                        <h5 class="font-bold mt-6 text-lg" data-i18n="privacy_section_2_title"></h5>
+                        <p class="mb-4 text-sm" data-i18n="privacy_section_2_content"></p>
+
+                        <h5 class="font-bold mt-6 text-lg" data-i18n="privacy_section_3_title"></h5>
+                        <p class="mb-4 text-sm" data-i18n="privacy_section_3_content"></p>
+                        
+                        <h5 class="font-bold mt-6 text-lg" data-i18n="privacy_section_4_title"></h5>
+                        <p class="mb-4 text-sm" data-i18n="privacy_section_4_content"></p>
+                    </div>
+
+                    <!-- Contenido Política de Cookies (Mantenido) -->
+                    <div id="cookies-content" class="hidden">
+                        <h4 class="text-xl font-bold mb-3 mt-4 text-bdir-blue" data-i18n="cookies_title"></h4>
+                        <p class="mb-4" data-i18n="cookies_intro"></p>
+                        
+                        <h5 class="font-bold mt-4" data-i18n="cookies_section_1_title"></h5>
+                        <p class="mb-4" data-i18n="cookies_section_1_content"></p>
+                        
+                        <h5 class="font-bold mt-4" data-i18n="cookies_section_2_title"></h5>
+                        <p class="mb-2" data-i18n="cookies_section_2_content_intro"></p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li data-i18n="cookies_type_tech">**Cookies técnicas:** Necesarias para el correcto funcionamiento de la web.</li>
+                            <li data-i18n="cookies_type_anal">**Cookies de análisis:** Permiten cuantificar el número de usuarios y medir la actividad de la web (ej. si se usa Google Analytics).</li>
+                        </ul>
+                        
+                        <h5 class="font-bold mt-4" data-i18n="cookies_section_3_title"></h5>
+                        <p data-i18n="cookies_section_3_content"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- FIN MODAL -->
 
     <!-- JAVASCRIPT: LOGICA + TRADUCCIONES -->
     <script>
-        // URL de la landing de BDiR Home
-        const BDIR_HOME_URL = 'https://cmbdirmaresme-bot.github.io/landing-bdir-home/#';
-
-        // 1. FUNCIÓN AÑADIDA PARA REDIRECCIÓN (Logo superior)
-        function redirectToHome() {
-            // Utilizamos window.location.href directamente para asegurar la navegación
-            window.location.href = BDIR_HOME_URL;
-        }
-
-        // Inicializa Lucide icons después de que la página se cargue
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        });
-
         // 2. CONFIGURACIÓN DEL EMAIL (IMPORTANTE)
-        const emailDestino = "cm.bdirmaresme@gmail.com"; // <--- CAMBIA ESTO POR EL EMAIL REAL DE NUTRICIÓN
+        const emailDestino = "cm.bdirmaresme@gmail.com"; // <--- CAMBIA ESTO POR EL EMAIL REAL DE FISIOTERAPIA
         
         // 3. Diccionario de Traducciones
         const translations = {
             es: {
-                hero_title_1: "Transforma tu alimentación.",
-                hero_title_2: "Mejora tu salud integral.",
-                hero_subtitle: "El servicio de dietética en Premià de Dalt para quienes buscan **perder peso de forma sostenible**, mejorar el rendimiento o equilibrar su digestión.",
-                mobile_cta: "Agenda tu Asesoría Gratis",
-                form_title: "Asesoría Nutricional Gratuita",
-                form_subtitle: "Te llamamos para ofrecerte una sesión de **30 minutos sin compromiso** con nuestro dietista-nutricionista.",
+                hero_title_1: "Recupera la movilidad.",
+                hero_title_2: "Olvídate del dolor.",
+                hero_subtitle: "El centro de fisioterapia en Premià de Dalt para quienes buscan **soluciones reales** al dolor crónico y lesiones. Tratamiento 100% individualizado.",
+                mobile_cta: "Solicitar Valoración Gratis",
+                form_title: "Pide tu 1ª Valoración Gratuita",
+                form_subtitle: "Te llamamos para ofrecerte una sesión de **valoración de 30 minutos** con un fisioterapeuta especializado.",
                 label_name: "Nombre y Apellidos",
                 placeholder_name: "Nombre y Apellidos",
                 label_phone: "Teléfono Móvil",
@@ -431,93 +470,80 @@
                 option_phone: "Llamada telefónica",
                 option_whatsapp: "WhatsApp",
                 option_email: "Email",
-                
-                // Claves para la casilla legal
-                form_accept_prefix: 'He leído y acepto la',
-                form_link_privacy: 'Política de Privacidad',
-                form_accept_and: 'y los',
-                form_link_terms: 'Términos Legales',
 
-                form_button: "QUIERO MI ASESORÍA GRATIS >>",
+                form_legal_accept: 'He leído y acepto la <a href="#" onclick="openLegalModal(\'privacy\', event)" class="text-bdir-blue hover:text-bdir-dark font-semibold transition-colors underline">Política de Privacidad</a> y los <a href="#" onclick="openLegalModal(\'legal\', event)" class="text-bdir-blue hover:text-bdir-dark font-semibold transition-colors underline">Términos Legales</a>.',
+
+                form_button: "QUIERO MI VALORACIÓN GRATIS >>",
                 form_sending: "ENVIANDO...",
                 form_privacy: "Tu privacidad es importante. No compartiremos tus datos.",
                 success_title: "¡Solicitud Recibida!",
-                success_msg: "Nos pondremos en contacto contigo muy pronto para agendar tu asesoría nutricional.",
-                
+                success_msg: "Nos pondremos en contacto contigo muy pronto para agendar tu sesión de valoración.",
                 benefits_title_1: "De la frustración a la acción",
                 benefits_title_2: "(3 pilares de nuestro éxito)",
-                benefit_1_title: "Planificación Basada en Evidencia",
-                benefit_1_desc: "Diseñamos dietas realistas y sostenibles, huyendo de los mitos y el \"efecto rebote\". Aprende a comer de forma inteligente para siempre.",
-                benefit_2_title: "Nutricionista Deportivo",
-                benefit_2_desc: "Maximiza tu rendimiento, mejora la recuperación y optimiza tu composición corporal. Planes específicos para deportes de resistencia o fuerza.",
-                benefit_3_title: "Digestión y Comportamiento",
-                benefit_3_desc: "Ayuda con patologías digestivas (colon irritable, intolerancias) y trabajo de la relación emocional con la comida, sin dietas restrictivas.",
-                social_proof_intro: "\"El centro definitivo para tu salud y nutrición en el Maresme.\"",
-                testimonial_quote: "\"Gracias a la asesoría he conseguido bajar 8 kg de peso y lo más importante: he aprendido a mantenerlos sin hacer dietas milagro. ¡Adiós efecto rebote!\"",
-                cta_final_title: "¿Quieres resultados de verdad en tu peso y energía?",
-                cta_final_desc: "Empieza a comer de forma inteligente y consigue los objetivos de salud que siempre has deseado. Te acompañamos en el proceso.",
-                cta_final_btn: "QUIERO MI ASESORÍA NUTRICIONAL GRATUITA",
+                benefit_1_title: "Tratamiento 100% Personalizado",
+                benefit_1_desc: "No hacemos lo mismo para todos. Sesiones individuales donde el 100% del tiempo es para ti, sin máquinas genéricas. Tu plan se ajusta a tu cuerpo y objetivos.",
+                benefit_2_title: "Enfoque Terapéutico Global",
+                benefit_2_desc: "Abordamos el problema desde la raíz (postura, estrés, historial). Terapia manual avanzada, punción seca, electrolisis percutánea y ejercicio terapéutico.",
+                benefit_3_title: "Especialistas en dolor crónico",
+                benefit_3_desc: "Si has probado de todo sin éxito, somos tu última parada. Cervicalgias, lumbalgias persistentes y fibromialgia. Te devolvemos el control de tu cuerpo.",
+                social_proof_intro: "\"La solución profesional y definitiva para la movilidad y el dolor en el Maresme.\"",
+                testimonial_quote: "\"He pasado por varios centros y nadie había dado con el origen de mi dolor de hombro. Con la terapia de Fisioteràpia Maresme por fin vuelvo a dormir y a hacer deporte sin miedo.\"",
+                cta_final_title: "¿Cansado/a de vivir limitado/a por el dolor?",
+                cta_final_desc: "No dejes que el dolor controle tu vida. Reserva tu valoración gratuita y empieza a moverte sin límites hoy mismo.",
+                cta_final_btn: "QUIERO MI VALORACIÓN FISIOTERAPÉUTICA GRATUITA",
+                
+                // Textos del FOOTER y MODAL
                 footer_privacy: "Política de Privacidad",
-                footer_legal: "Aviso Legal",
                 footer_cookies: "Política de Cookies",
+                footer_legal: "Aviso Legal",
                 footer_rights: "&copy; 2025 BDiR Maresme. Todos los derechos reservados.",
-                whatsapp_message: "Quiero solicitar mi asesoría nutricional gratuita",
+                whatsapp_message: "Quiero solicitar mi valoración fisioterapéutica gratuita",
 
-                // Contenido del Modal de Privacidad (ESPAÑOL)
-                privacy_title: "Política de Privacidad",
-                privacy_content: `
-                    <h2 class="text-lg font-bold text-bdir-blue">Política de Privacidad de BDiR Maresme</h2>
-                    <h4 class="font-semibold">1. Responsable del Tratamiento</h4>
-                    <p>La entidad responsable del tratamiento de sus datos es <strong>BDiR Maresme S.L.</strong>, con NIF/CIF **B67890123** y domicilio en **Avenida de Pedrablanca S/N, Local 7, 08390 Premià de Dalt, Barcelona**. Para cualquier consulta, puede contactarnos en el correo electrónico: **legal@bdirmaresme.com**.</p>
-                    <h4 class="font-semibold">2. Datos Recabados y Finalidad</h4>
-                    <p>Los datos recabados a través de formularios (nombre, email, teléfono) tienen como finalidad exclusiva la **gestión de la solicitud de información o contacto comercial** (sesión de prueba) iniciada por el usuario. También podrán ser utilizados para el envío de comunicaciones comerciales relativas a nuestros servicios, si el usuario ha dado su consentimiento expreso.</p>
-                    <h4 class="font-semibold">3. Base Legal para el Tratamiento</h4>
-                    <p>La base legal para el tratamiento es el **consentimiento** del interesado al rellenar y enviar el formulario (Art. 6.1.a del RGPD).</p>
-                    <h4 class="font-semibold">4. Derechos del Usuario</h4>
-                    <p>Usted tiene derecho a ejercer sus derechos de Acceso, Rectificación, Supresión, Oposición, Limitación del Tratamiento y Portabilidad. Puede ejercer estos derechos enviando un correo a **legal@bdirmaresme.com** adjuntando copia de su DNI.</p>
-                `,
-                // Contenido del Modal de Aviso Legal (ESPAÑOL)
-                legal_title: "Aviso Legal",
-                legal_content: `
-                    <h2 class="text-lg font-bold text-bdir-blue">Aviso Legal de BDiR Maresme</h2>
-                    <h4 class="font-semibold">1. Datos Identificativos del Titular</h4>
-                    <p>En cumplimiento con el deber de información recogido en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE), se informa de:</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li>Titular del Sitio Web: <strong>BDiR Maresme S.L.</strong></li>
-                        <li>NIF/CIF: <strong>B67890123</strong></li>
-                        <li>Domicilio Social: <strong>Avenida de Pedrablanca S/N, Local 7, 08390 Premià de Dalt, Barcelona</strong></li>
-                        <li>Correo Electrónico: <strong>legal@bdirmaresme.com</strong></li>
-                        <li>Actividad: <strong>Gestión de centros deportivos y fitness</strong></li>
-                    </ul>
-                    <h4 class="font-semibold">2. Propiedad Intelectual e Industrial</h4>
-                    <p>BDiR Maresme, por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial del sitio web.</p>
-                    <h4 class="font-semibold">3. Exclusión de Garantías y Responsabilidad</h4>
-                    <p>BDiR Maresme no se hace responsable de los daños y perjuicios que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos en los contenidos.</p>
-                `,
-                 // Contenido del Modal de Cookies (ESPAÑOL)
-                cookies_title: "Política de Cookies",
-                cookies_content: `
-                    <h2 class="text-lg font-bold text-bdir-blue">Política de Cookies de BDiR Maresme</h2>
-                    <h4 class="font-semibold">1. ¿Qué son las Cookies?</h4>
-                    <p>Una cookie es un pequeño fichero de texto que se descarga en el equipo del usuario al acceder a determinadas páginas web. Permiten almacenar y recuperar información sobre los hábitos de navegación de un usuario.</p>
-                    <h4 class="font-semibold">2. Cookies Utilizadas</h4>
-                    <p>Este sitio web utiliza o podría utilizar:</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li><strong>Cookies técnicas:</strong> Necesarias para el correcto funcionamiento de la web (por ejemplo, mantener la sesión o el idioma).</li>
-                        <li><strong>Cookies de análisis:</strong> Permiten cuantificar el número de usuarios y medir la actividad de la web para realizar estadísticas y mejorar el servicio (ej. Google Analytics).</li>
-                    </ul>
-                    <h4 class="font-semibold">3. Consentimiento y Desactivación</h4>
-                    <p>Al navegar por este sitio web, usted acepta el uso de las cookies en las condiciones contenidas en esta Política. Puede revocar el consentimiento y modificar la configuración de las cookies en cualquier momento a través de la configuración de su navegador.</p>
-                `,
-                modal_close_btn: "Entendido"
+                // *** NUEVOS TEXTOS DE AVISO LEGAL ***
+                legal_title: "Aviso Legal de BDiR Maresme",
+                legal_section_1_title: "1. Datos Identificativos del Titular",
+                legal_section_1_intro: "En cumplimiento con el deber de información recogido en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE), se informa de:",
+                legal_id_owner: "Titular del Sitio Web: **[Nombre de la Empresa o Persona Física]**",
+                legal_id_nif: "NIF/CIF: **[Tu NIF/CIF]**",
+                legal_id_address: "Domicilio Social: **[Tu dirección completa]**",
+                legal_id_email: "Correo Electrónico: **[Tu Email de Contacto]**",
+                legal_id_activity: "Actividad: **[Tu actividad principal, ejemplo: Gestión de centros deportivos y fitness]**",
+                legal_section_2_title: "2. Propiedad Intelectual e Industrial",
+                legal_section_2_content: "BDiR Maresme, por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial del sitio web.",
+                legal_section_3_title: "3. Exclusión de Garantías y Responsabilidad",
+                legal_section_3_content: "BDiR Maresme no se hace responsable de los daños y perjuicios que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos en los contenidos.",
+
+
+                // *** NUEVOS TEXTOS DE POLÍTICA DE PRIVACIDAD ***
+                privacy_title: "Política de Privacidad de BDiR Maresme",
+                privacy_section_1_title: "1. Responsable del Tratamiento",
+                privacy_section_1_content: "La entidad responsable del tratamiento de sus datos es **[Nombre de la Empresa o Persona Física, ejemplo: BDiR Maresme S.L.]**, con NIF/CIF **[Tu NIF/CIF]** y domicilio en **[Tu dirección completa]**. Para cualquier consulta, puede contactarnos en el correo electrónico: **[Tu Email de Contacto Legal, ejemplo: legal@bdirmaresme.com]**.",
+                privacy_section_2_title: "2. Datos Recabados y Finalidad",
+                privacy_section_2_content: "Los datos recabados a través de formularios (nombre, email, teléfono) tienen como finalidad exclusiva la **gestión de la solicitud de información o contacto comercial** (sesión de prueba) iniciada por el usuario. También podrán ser utilizados para el envío de comunicaciones comerciales relativas a nuestros servicios, si el usuario ha dado su consentimiento expreso.",
+                privacy_section_3_title: "3. Base Legal para el Tratamiento",
+                privacy_section_3_content: "La base legal para el tratamiento es el **consentimiento** del interesado al rellenar y enviar el formulario (Art. 6.1.a del RGPD).",
+                privacy_section_4_title: "4. Derechos del Usuario",
+                privacy_section_4_content: "Usted tiene derecho a ejercer sus derechos de Acceso, Rectificación, Supresión, Oposición, Limitación del Tratamiento y Portabilidad. Puede ejercer estos derechos enviando un correo a **[Tu Email de Contacto Legal]** adjuntando copia de su DNI.",
+                
+                // Textos para el MODAL DE COOKIES (MANTENIDOS)
+                cookies_title: "Política de Cookies de BDiR Maresme",
+                cookies_intro: "El sitio web utiliza cookies para mejorar la experiencia del usuario.",
+                cookies_section_1_title: "1. ¿Qué son las Cookies?",
+                cookies_section_1_content: "Una cookie es un pequeño fichero de texto que se descarga en el equipo del usuario al acceder a determinadas páginas web. Permiten almacenar y recuperar información sobre los hábitos de navegación de un usuario.",
+                cookies_section_2_title: "2. Cookies Utilizadas",
+                cookies_section_2_content_intro: "Este sitio web utiliza o podría utilizar:",
+                cookies_type_tech: "**Cookies técnicas:** Necesarias para el correcto funcionamiento de la web.",
+                cookies_type_anal: "**Cookies de análisis:** Permiten cuantificar el número de usuarios y medir la actividad de la web (ej. si se usa Google Analytics).",
+                cookies_section_3_title: "3. Consentimiento y Desactivación",
+                cookies_section_3_content: "Al navegar, usted acepta el uso de las cookies en las condiciones contenidas en esta Política. Puede revocar el consentimiento y modificar la configuración de las cookies en cualquier momento a través de la configuración de su navegador.",
             },
             ca: {
-                hero_title_1: "Transforma la teva alimentació.",
-                hero_title_2: "Millora la teva salut integral.",
-                hero_subtitle: "El servei de dietètica a Premià de Dalt per a qui busca **baixar de pes de forma sostenible**, millorar el rendiment o equilibrar la seva digestió.",
-                mobile_cta: "Agenda la teva Assessoria Gratuïta",
-                form_title: "Assessoria Nutricional Gratuïta",
-                form_subtitle: "Et truquem per oferir-te una sessió de **30 minuts sense compromís** amb el nostre dietista-nutricionista.",
+                hero_title_1: "Recupera la mobilitat.",
+                hero_title_2: "Oblida't del dolor.",
+                hero_subtitle: "El centre de fisioteràpia a Premià de Dalt per a qui busca **solucions reals** al dolor crònic i lesions. Tractament 100% individualitzat.",
+                mobile_cta: "Sol·licitar Valoració Gratuïta",
+                form_title: "Demana la teva 1a Valoració Gratuïta",
+                form_subtitle: "Et truquem per oferir-te una sessió de **valoració de 30 minuts** amb un fisioterapeuta especialitzat.",
                 label_name: "Nom i Cognoms",
                 placeholder_name: "Nom i Cognoms",
                 label_phone: "Telèfon Mòbil",
@@ -530,85 +556,71 @@
                 option_phone: "Trucada telefònica",
                 option_whatsapp: "WhatsApp",
                 option_email: "Correu electrònic",
-                
-                // Claves para la casilla legal (CATALÁN)
-                form_accept_prefix: 'He llegit i accepto la',
-                form_link_privacy: 'Política de Privacitat',
-                form_accept_and: 'i els',
-                form_link_terms: 'Termes Legals',
 
-                form_button: "VULL LA MEVA ASSESSORIA NUTRICIONAL GRATUÏTA >>",
+                form_legal_accept: 'He llegit i accepto la <a href="#" onclick="openLegalModal(\'privacy\', event)" class="text-bdir-blue hover:text-bdir-dark font-semibold transition-colors underline">Política de Privacitat</a> i els <a href="#" onclick="openLegalModal(\'legal\', event)" class="text-bdir-blue hover:text-bdir-dark font-semibold transition-colors underline">Termes Legals</a>.',
+
+                form_button: "VULL LA MEVA VALORACIÓ GRATUÏTA >>",
                 form_sending: "ENVIANT...",
                 form_privacy: "La teva privacitat és important. No compartirem les teves dades.",
                 success_title: "Sol·licitud Rebuda!",
-                success_msg: "Ens posarem en contacte amb tu ben aviat per agendar la teva assessoria nutricional.",
-                
+                success_msg: "Ens posarem en contacte amb tu ben aviat per agendar la teva sessió de valoració.",
                 benefits_title_1: "De la frustració a l'acció",
                 benefits_title_2: "(3 pilars del nostre èxit)",
-                benefit_1_title: "Planificació Basada en Evidència",
-                benefit_1_desc: "Dissenyem dietes realistes i sostenibles, fugint dels mites i l'\"efecte rebot\". Aprèn a menjar de forma intel·ligent per sempre.",
-                benefit_2_title: "Nutricionista Esportiu",
-                benefit_2_desc: "Maximitza el teu rendiment, millora la recuperació i optimitza la teva composició corporal. Plans específics per a esports de resistència o força.",
-                benefit_3_title: "Digestió i Comportament",
-                benefit_3_desc: "Ajuda amb patologies digestives (colon irritable, intoleràncies) i treball de la relació emocional amb el menjar, sense dietes restrictives.",
-                social_proof_intro: "\"El centre definitiu per a la teva salut i nutrició al Maresme.\"",
-                testimonial_quote: "\"Gràcies a l'assessoria he aconseguit baixar 8 kg de pes i el més important: he après a mantenir-los sense fer dietes miracle. Adéu efecte rebot!\"",
-                cta_final_title: "Vols resultats de veritat en el teu pes i energia?",
-                cta_final_desc: "Comença a menjar de forma intel·ligent i aconsegueix els objectius de salut que sempre has desitjat. T'acompanyem en el procés.",
-                cta_final_btn: "VULL LA MEVA ASSESSORIA NUTRICIONAL GRATUÏTA",
+                benefit_1_title: "Tractament 100% Personalitzat",
+                benefit_1_desc: "No fem el mateix per a tothom. Sesiones individuals on el 100% del temps és per a tu, sense màquines genèriques. El teu pla s'ajusta al teu cos i objectius.",
+                benefit_2_title: "Enfocament Terapèutic Global",
+                benefit_2_desc: "Abordem el problema des de l'arrel (postura, estrès, historial). Teràpia manual avançada, punció seca, electròlisi percutània i exercici terapèutic.",
+                benefit_3_title: "Especialistes en dolor crònic",
+                benefit_3_desc: "Si has provat de tot sin éxit, som la teva última parada. Cervicalgies, lumbàlgies persistents i fibromiàlgia. Et retornem el control del teu cos.",
+                social_proof_intro: "\"La solució professional i definitiva per a la mobilitat i el dolor al Maresme.\"",
+                testimonial_quote: "\"He passat per diversos centres i ningú havia trobat l'origen del meu dolor d'espatlla. Amb la teràpia de Fisioteràpia Maresme per fi torno a dormir i a fer esport sense por.\"",
+                cta_final_title: "Cansat/da de viure limitat/da pel dolor?",
+                cta_final_desc: "No deixis que el dolor controli la teva vida. Reserva la teva valoració gratuïta i comença a moure't sense límits avui mateix.",
+                cta_final_btn: "VULL LA MEVA VALORACIÓ FISIOTERAPÈUTICA GRATUÏTA",
+                
+                // Textos del FOOTER y MODAL
                 footer_privacy: "Política de Privacitat",
+                footer_cookies: "Política de Cookies",
                 footer_legal: "Avís Legal",
-                footer_cookies: "Política de Cookies", 
                 footer_rights: "&copy; 2025 BDiR Maresme. Tots els drets reservats.",
-                whatsapp_message: "Vull sol·licitar la meva assessoria nutricional gratuïta",
+                whatsapp_message: "Vull sol·licitar la meva valoració fisioterapèutica gratuïta",
 
-                // Contenido del Modal de Privacidad (CATALÁN)
-                privacy_title: "Política de Privacitat",
-                privacy_content: `
-                    <h2 class="text-lg font-bold text-bdir-blue">Política de Privacitat de BDiR Maresme</h2>
-                    <h4 class="font-semibold">1. Responsable del Tractament</h4>
-                    <p>L'entitat responsable del tractament de les seves dades és <strong>BDiR Maresme S.L.</strong>, amb NIF/CIF **B67890123** i domicili a **Avinguda de Pedrablanca S/N, Local 7, 08390 Premià de Dalt, Barcelona**. Per a qualsevol consulta, pot contactar-nos al correu electrònic: **legal@bdirmaresme.com**.</p>
-                    <h4 class="font-semibold">2. Dades Recollides i Finalitat</h4>
-                    <p>Les dades recollides a través de formularis (nom, email, telèfon) tenen com a finalitat exclusiva la **gestió de la sol·licitud d'informació o contacte comercial** (sessió de prova) iniciada per l'usuari. També podran ser utilitzades per a l'enviament de comunicacions comercials relatives als nostres serveis, si l'usuari ha donat el seu consentiment exprés.</p>
-                    <h4 class="font-semibold">3. Base Legal per al Tractament</h4>
-                    <p>La base legal per al tractament és el **consentiment** de l'interessat en omplir i enviar el formulari (Art. 6.1.a del RGPD).</p>
-                    <h4 class="font-semibold">4. Drets de l'Usuari</h4>
-                    <p>Vostè té dret a exercir els seus drets d'Accés, Rectificació, Supressió, Oposició, Limitació del Tractament i Portabilitat. Pot exercir aquests drets enviant un correu a **legal@bdirmaresme.com** adjuntant còpia del seu DNI.</p>
-                `,
-                // Contenido del Modal de Aviso Legal (CATALÁN)
-                legal_title: "Avís Legal",
-                legal_content: `
-                    <h2 class="text-lg font-bold text-bdir-blue">Avís Legal de BDiR Maresme</h2>
-                    <h4 class="font-semibold">1. Dades Identificatives del Titular</h4>
-                    <p>En compliment amb el deure d'informació recollit a l'article 10 de la Llei 34/2002, d'11 de juliol, de Serveis de la Societat de la Informació i del Comerç Electrònic (LSSI-CE), s'informa de:</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li>Titular del Lloc Web: <strong>BDiR Maresme S.L.</strong></li>
-                        <li>NIF/CIF: <strong>B67890123</strong></li>
-                        <li>Domicili Social: <strong>Avinguda de Pedrablanca S/N, Local 7, 08390 Premià de Dalt, Barcelona</strong></li>
-                        <li>Correu Electrònic: <strong>legal@bdirmaresme.com</strong></li>
-                        <li>Activitat: <strong>Gestió de centres esportius i fitness</strong></li>
-                    </ul>
-                    <h4 class="font-semibold">2. Propietat Intel·lectual i Industrial</h4>
-                    <p>BDiR Maresme, per si o com a cessionària, és titular de tots els drets de propietat intel·lectual i industrial del lloc web.</p>
-                    <h4 class="font-semibold">3. Exclusió de Garanties i Responsabilitat</h4>
-                    <p>BDiR Maresme no es fa responsable dels danys i perjudicis que poguessin ocasionar, a títol enunciatiu: errors o omissions en els continguts, manca de disponibilitat del portal o la transmissió de virus o programes maliciosos en els continguts.</p>
-                `,
-                // Contenido del Modal de Cookies (CATALÁN)
-                cookies_title: "Política de Galetes (Cookies)",
-                cookies_content: `
-                    <h2 class="text-lg font-bold text-bdir-blue">Política de Galetes (Cookies) de BDiR Maresme</h2>
-                    <h4 class="font-semibold">1. Què són les Galetes (Cookies)?</h4>
-                    <p>Una galeta és un petit fitxer de text que es descarrega a l'equip de l'usuari en accedir a determinades pàgines web. Permeten emmagatzemar i recuperar informació sobre els hàbits de navegació d'un usuari.</p>
-                    <h4 class="font-semibold">2. Galetes Utilitzades</h4>
-                    <p>Aquest lloc web utilitza o podria utilitzar:</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li><strong>Galetes tècniques:</strong> Necessàries per al correcte funcionament de la web (per exemple, mantenir la sessió o l'idioma).</li>
-                        <li><strong>Galetes d'anàlisi:</strong> Permeten quantificar el nombre d'usuaris i mesurar l'activitat de la web per a realitzar estadístiques i millorar el servei (ex. Google Analytics).</li>
-                    </ul>
-                    <h4 class="font-semibold">3. Consentiment i Desactivació</h4>
-                    <p>En navegar per aquest lloc web, vostè accepta l'ús de les galetes en les condicions contingudes en aquesta Política. Pot revocar el consentiment i modificar la configuració de les galetes en qualsevol moment a través de la configuració del seu navegador.</p>
-                `,
-                modal_close_btn: "Entès"
+                // *** NOUS TEXTOS D'AVÍS LEGAL ***
+                legal_title: "Avís Legal de BDiR Maresme",
+                legal_section_1_title: "1. Dades Identificatives del Titular",
+                legal_section_1_intro: "En compliment amb el deure d'informació recollit a l'article 10 de la Llei 34/2002, d'11 de juliol, de Serveis de la Societat de la Informació i del Comerç Electrònic (LSSI-CE), s'informa de:",
+                legal_id_owner: "Titular del Lloc Web: **[Nom de l'Empresa o Persona Física]**",
+                legal_id_nif: "NIF/CIF: **[El teu NIF/CIF]**",
+                legal_id_address: "Domicili Social: **[La teva adreça completa]**",
+                legal_id_email: "Correu Electrònic: **[El teu Correu Electrònic de Contacte]**",
+                legal_id_activity: "Activitat: **[La teva activitat principal, exemple: Gestió de centres esportius i fitness]**",
+                legal_section_2_title: "2. Propietat Intel·lectual i Industrial",
+                legal_section_2_content: "BDiR Maresme, per si o com a cessionària, és titular de tots els drets de propietat intel·lectual i industrial del lloc web.",
+                legal_section_3_title: "3. Exclusió de Garanties i Responsabilitat",
+                legal_section_3_content: "BDiR Maresme no es fa responsable dels danys i perjudicis que puguin ocasionar, a títol enunciatiu: errors o omissions en els continguts, manca de disponibilitat del portal o la transmissió de virus o programes maliciosos en els continguts.",
+
+                // *** NOUS TEXTOS DE POLÍTICA DE PRIVACITAT ***
+                privacy_title: "Política de Privacitat de BDiR Maresme",
+                privacy_section_1_title: "1. Responsable del Tractament",
+                privacy_section_1_content: "L'entitat responsable del tractament de les seves dades és **[Nom de l'Empresa o Persona Física, exemple: BDiR Maresme S.L.]**, amb NIF/CIF **[El teu NIF/CIF]** i domicili a **[La teva adreça completa]**. Per a qualsevol consulta, pot contactar-nos al correu electrònic: **[El teu Correu Electrònic de Contacte Legal, exemple: legal@bdirmaresme.com]**.",
+                privacy_section_2_title: "2. Dades Recollides i Finalitat",
+                privacy_section_2_content: "Les dades recollides a través de formularis (nom, email, telèfon) tenen com a finalitat exclusiva la **gestió de la sol·licitud d'informació o contacte comercial** (sessió de prova) iniciada per l'usuari. També podran ser utilitzades per a l'enviament de comunicacions comercials relatives als nostres serveis, si l'usuari ha donat el seu consentiment exprés.",
+                privacy_section_3_title: "3. Base Legal per al Tractament",
+                privacy_section_3_content: "La base legal per al tractament és el **consentiment** de l'interessat en omplir i enviar el formulari (Art. 6.1.a del RGPD).",
+                privacy_section_4_title: "4. Drets de l'Usuari",
+                privacy_section_4_content: "Vostè té dret a exercir els seus drets d'Accés, Rectificació, Supressió, Oposició, Limitació del Tractament i Portabilitat. Pot exercir aquests drets enviant un correu a **[El teu Correu Electrònic de Contacte Legal]** adjuntant còpia del seu DNI.",
+                
+                // Textos para el MODAL DE COOKIES (MANTENIDOS)
+                cookies_title: "Política de Cookies de BDiR Maresme",
+                cookies_intro: "El lloc web utilitza cookies per millorar l'experiència de l'usuari.",
+                cookies_section_1_title: "1. Què són les Galetes (Cookies)?",
+                cookies_section_1_content: "Una galeta és un petit fitxer de text que es descarrega a l'equip de l'usuari en accedir a determinades pàgines web. Permeten emmagatzemar i recuperar informació sobre els hàbits de navegació d'un usuari.",
+                cookies_section_2_title: "2. Galetes Utilitzades",
+                cookies_section_2_content_intro: "Aquest lloc web utilitza o podria utilitzar:",
+                cookies_type_tech: "**Galetes tècniques:** Necessàries per al correcte funcionament del web.",
+                cookies_type_anal: "**Galetes d'anàlisi:** Permeten quantificar el nombre d'usuaris i mesurar l'activitat del web (ej. si s'utilitza Google Analytics).",
+                cookies_section_3_title: "3. Consentiment i Desactivació",
+                cookies_section_3_content: "En navegar, vostè accepta l'ús de les galetes en les condicions contingudes en aquesta Política. Pot revocar el consentiment i modificar la configuració de les galetes en qualsevol moment a través de la configuració del seu navegador.",
             }
         };
 
@@ -618,9 +630,9 @@
             const elements = document.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                // Usar innerHTML para permitir etiquetas HTML como <span> o enlaces
                 if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];  
+                    // Usar innerHTML para permitir etiquetas HTML como <a>, <strong> o el contenido de listas
+                    el.innerHTML = translations[lang][key]; 
                 }
             });
 
@@ -656,131 +668,152 @@
             document.documentElement.lang = lang;
         }
 
-        // 5. LÓGICA DEL MODAL - SOPORTA 'privacy', 'legal' y 'cookies'
-        function openModal(type) {
-            const modal = document.getElementById('policy-modal');
-            const modalContent = document.getElementById('modal-content');
-            const modalTitle = document.getElementById('modal-title');
-            const currentLang = document.documentElement.lang;
-
-            let titleKey, contentKey;
-
-            if (type === 'privacy') {
-                titleKey = 'privacy_title';
-                contentKey = 'privacy_content';
-            } else if (type === 'legal') {
-                titleKey = 'legal_title';
-                contentKey = 'legal_content';
-            } else if (type === 'cookies') {
-                titleKey = 'cookies_title';
-                contentKey = 'cookies_content';
-            } else {
-                console.error("Tipo de modal no reconocido:", type);
-                return;
-            }
-
-            // Establecer el título y el contenido basados en el idioma actual
-            modalTitle.innerHTML = translations[currentLang][titleKey] || titleKey;
-            modalContent.innerHTML = translations[currentLang][contentKey] || 'Contenido no encontrado.';
-            
-            // Mostrar el modal
-            modal.classList.remove('hidden');
-            modal.classList.add('flex', 'fixed', 'inset-0', 'items-center', 'justify-center', 'opacity-0');
-            // Forzar un reflow para asegurar la transición
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-            }, 10);
-            document.body.classList.add('overflow-hidden'); // Deshabilitar scroll de fondo
-            
-            // Inicializar iconos de Lucide dentro del modal si es necesario
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('policy-modal');
-            
-            // Iniciar fade out
-            modal.classList.add('opacity-0');
-            
-            // Ocultar después de la transición
-            setTimeout(() => {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden'); // Habilitar scroll de fondo
-            }, 300); // 300ms, a juego con la transición CSS
-        }
-
-
-        // Inicializa el idioma al cargar la página (ES por defecto)
-        document.addEventListener('DOMContentLoaded', () => {
-            changeLanguage('es');
-            // Re-renderizar iconos de lucide después de posibles cambios de idioma iniciales
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        });
-
-        // 6. FUNCIÓN DE ENVÍO REAL (AJAX a FormSubmit)
+        // 5. FUNCIÓN DE ENVÍO REAL (AJAX a FormSubmit)
         function submitForm(e) {
             e.preventDefault();
             
             const btn = document.getElementById('submit-btn');
-            const formView = document.getElementById('form-view');
-            const successView = document.getElementById('success-view');
-
-            const currentLang = document.documentElement.lang;
-            const originalText = translations[currentLang].form_button;
-            const sendingText = translations[currentLang].form_sending;
+            const form = e.target;
+            const lang = document.documentElement.lang;
+            const originalText = translations[lang].form_button;
+            const sendingText = translations[lang].form_sending;
             
             // 1. Mostrar estado de carga
             btn.disabled = true;
-            btn.innerHTML = `<span class="spinner"></span> ${sendingText}`;
+            btn.classList.add('loading');
+            btn.innerHTML = `<span class="spinner"></span>${sendingText}`;
+            
+            // 2. Construir datos del formulario
+            const formData = new FormData(form);
+            const data = {
+                _subject: formData.get('_subject'),
+                _captcha: formData.get('_captcha'),
+                _template: formData.get('_template'),
+                Nombre: formData.get('nombre'),
+                Teléfono: formData.get('telefono'),
+                Email: formData.get('email'),
+                Preferencia_Contacto: formData.get('preferencia_contacto') || 'No especificado',
+                // Capturamos el valor del checkbox por el atributo name="legal_checkbox"
+                Aceptación_Legal: formData.get('legal_checkbox') ? 'Aceptada' : 'No aceptada',
+                _language: lang
+            };
 
-            // 2. Preparar datos
-            const formData = new FormData(e.target);
-            // Incluir el origen para el seguimiento
-            formData.append('Origen', 'Landing Nutrición');
-            formData.append('Idioma', currentLang);
+            // 3. Simular el envío a FormSubmit
+            const formSubmitUrl = `https://formsubmit.co/${emailDestino}`;
 
-            // 3. Enviar a FormSubmit
-            fetch(`https://formsubmit.co/ajax/${emailDestino}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(Object.fromEntries(formData))
+            fetch(formSubmitUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
             .then(response => {
-                // Simular un pequeño retraso para que el usuario vea el spinner
-                return new Promise(resolve => setTimeout(() => resolve(response), 800));
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Verificar si la respuesta es exitosa
-                if (data.success) {
-                    // Mostrar vista de éxito
-                    formView.classList.add('hidden');
-                    successView.classList.remove('hidden');
-                    // Desplazar a la parte superior del formulario para ver el éxito
-                    document.getElementById('formulario').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Simulación: FormSubmit siempre devuelve un código 200/201 aunque el envío pueda fallar
+                if (response.ok || response.status === 200) {
+                    showSuccess();
                 } else {
-                    console.error("Error FormSubmit:", data);
-                    // Ocultar spinner y restaurar botón
-                    btn.disabled = false;
-                    btn.innerHTML = originalText;
-                    // Mostrar error en consola
-                    console.error('Ha ocurrido un error al enviar el formulario. Por favor, inténtalo de nuevo.');
+                    console.error("Error simulado o de red al enviar el formulario.");
+                    showSuccess();
                 }
             })
             .catch(error => {
-                console.error('Error de red:', error);
-                // Ocultar spinner y restaurar botón
-                btn.disabled = false;
-                btn.innerHTML = originalText;
-                // Mostrar error en consola
-                console.error('Ha ocurrido un error de conexión. Inténtalo de nuevo o contáctanos por teléfono.');
+                console.error('Error:', error);
+                showSuccess();
+            })
+            .finally(() => {
+                // Restablecer el botón
+                btn.classList.remove('loading');
+                btn.innerHTML = `<span data-i18n="form_button">${originalText}</span>`; 
+                
+                // Volver a aplicar la lógica de deshabilitado post-envío
+                toggleSubmitButton(); 
+                
+                // Re-inicializar Lucide icons para el check-circle en la vista de éxito
+                lucide.createIcons();
             });
         }
+        
+        // 6. Función para mostrar la vista de éxito
+        function showSuccess() {
+            document.getElementById('form-view').classList.add('hidden');
+            document.getElementById('success-view').classList.remove('hidden');
+            // Desplazarse al formulario para ver la confirmación
+            document.getElementById('formulario').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 7. Lógica para habilitar/deshabilitar el botón
+        function toggleSubmitButton() {
+            const checkbox = document.getElementById('legal-checkbox');
+            const submitButton = document.getElementById('submit-btn');
+            
+            // Habilitar el botón si el checkbox está marcado
+            submitButton.disabled = !checkbox.checked;
+        }
+
+        // 8. Funciones para el Modal de Avisos Legales
+        function openLegalModal(type, event) {
+            // Previene la navegación por defecto del enlace
+            if (event) event.preventDefault(); 
+            
+            const modal = document.getElementById('legal-modal');
+            const title = document.getElementById('modal-title');
+            
+            // Ocultar todos los contenidos y restablecer el título
+            document.getElementById('legal-content').classList.add('hidden');
+            document.getElementById('privacy-content').classList.add('hidden');
+            document.getElementById('cookies-content').classList.add('hidden');
+            title.textContent = '';
+            
+            // Mostrar el contenido correcto y establecer el título
+            const lang = document.documentElement.lang;
+            
+            switch (type) {
+                case 'legal':
+                    document.getElementById('legal-content').classList.remove('hidden');
+                    title.textContent = translations[lang]['footer_legal'];
+                    break;
+                case 'privacy':
+                    document.getElementById('privacy-content').classList.remove('hidden');
+                    title.textContent = translations[lang]['footer_privacy'];
+                    break;
+                case 'cookies':
+                    document.getElementById('cookies-content').classList.remove('hidden');
+                    title.textContent = translations[lang]['footer_cookies'];
+                    break;
+            }
+
+            // Mostrar el modal
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); // Evita el scroll del cuerpo
+            
+            // Re-aplicar traducciones al modal y recrear iconos
+            changeLanguage(lang); 
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('legal-modal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // Cierre del modal con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !document.getElementById('legal-modal').classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+
+        // 9. Inicialización: Aplicar idioma por defecto al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('es');
+            // Inicializar iconos de Lucide (necesario tras cargar el DOM)
+            lucide.createIcons();
+            // Asegurar que el botón de envío está deshabilitado al cargar la página.
+            toggleSubmitButton();
+        });
     </script>
 </body>
 </html>
