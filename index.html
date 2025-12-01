@@ -210,7 +210,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <!-- Feature 1: Pérdida de Peso Sostenible -->
+                <!-- Feature 1: Planificación Basada en Evidencia -->
                 <div class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-50 text-bdir-blue mb-6">
                         <i data-lucide="scale" class="h-8 w-8"></i>
@@ -301,18 +301,19 @@
         </div>
     </section>
 
-    <!-- --- FOOTER --- -->
-    <footer class="bg-gray-50 border-t border-gray-200">
+    <!-- --- FOOTER (MODIFICADO A OSCURO) --- -->
+    <footer class="bg-gray-900 border-t border-gray-800">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- LOGO FOOTER (BDiR MARESME) -->
                 <div class="flex items-center mb-4 md:mb-0">
-                    <!-- LOGO FOOTER (BDiR MARESME) -->
                     <div class="text-xl font-bold tracking-tighter text-bdir-blue font-title">
-                        BDiR <span class="font-light text-gray-500 ml-1 text-lg">Maresme</span>
+                        BDiR <span class="font-light text-gray-400 ml-1 text-lg">Maresme</span>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-gray-500 text-sm">
-                    <!-- CONTENEDOR DE DIRECCIÓN CON ACCIÓN DE MAPA (CORREGIDO: BÚSQUEDA por "BDiR Maresme") -->
+                <!-- Información de Contacto -->
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-gray-300 text-sm">
+                    <!-- CONTENEDOR DE DIRECCIÓN CON ACCIÓN DE MAPA -->
                     <a href="https://www.google.com/maps/search/?api=1&query=BDiR+Maresme"
                        target="_blank" 
                        rel="noopener noreferrer" 
@@ -332,14 +333,14 @@
                 </div>
             </div>
             
-            <div class="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
+            <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
                 <!-- Redes Sociales (Facebook e Instagram) -->
                 <div class="flex space-x-6 md:order-3 mt-4 md:mt-0 justify-center md:justify-end">
-                    <a href="https://www.facebook.com/bdirmaresme/?locale=es_ES" target="_blank" class="text-gray-400 hover:text-bdir-blue transition-colors">
+                    <a href="https://www.facebook.com/bdirmaresme/?locale=es_ES" target="_blank" class="text-gray-500 hover:text-bdir-blue transition-colors">
                         <span class="sr-only">Facebook</span>
                         <i data-lucide="facebook" class="h-6 w-6"></i>
                     </a>
-                    <a href="https://www.instagram.com/bdirmaresme/?hl=es" target="_blank" class="text-gray-400 hover:text-bdir-blue transition-colors">
+                    <a href="https://www.instagram.com/bdirmaresme/?hl=es" target="_blank" class="text-gray-500 hover:text-bdir-blue transition-colors">
                         <span class="sr-only">Instagram</span>
                         <i data-lucide="instagram" class="h-6 w-6"></i>
                     </a>
@@ -348,14 +349,14 @@
                 <!-- Enlaces Legales ACTUALIZADOS -->
                 <div class="flex space-x-6 md:order-2 justify-center mt-4 md:mt-0">
                     <!-- Ahora los enlaces legales llaman al modal -->
-                    <button type="button" onclick="openModal('privacy')" class="text-gray-400 hover:text-gray-500" data-i18n="footer_privacy">Política de Privacidad</button>
-                    <button type="button" onclick="openModal('legal')" class="text-gray-400 hover:text-gray-500" data-i18n="footer_legal">Aviso Legal</button>
+                    <button type="button" onclick="openModal('privacy')" class="text-gray-400 hover:text-gray-300 transition-colors" data-i18n="footer_privacy">Política de Privacidad</button>
+                    <button type="button" onclick="openModal('legal')" class="text-gray-400 hover:text-gray-300 transition-colors" data-i18n="footer_legal">Aviso Legal</button>
                     <!-- Enlace de Cookies ACTUALIZADO -->
-                    <button type="button" onclick="openModal('cookies')" class="text-gray-400 hover:text-gray-500" data-i18n="footer_cookies">Política de Cookies</button>
+                    <button type="button" onclick="openModal('cookies')" class="text-gray-400 hover:text-gray-300 transition-colors" data-i18n="footer_cookies">Política de Cookies</button>
                 </div>
 
                 <!-- Copyright (BDiR Maresme) -->
-                <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1 text-center md:text-left" data-i18n="footer_rights">
+                <p class="mt-8 text-base text-gray-500 md:mt-0 md:order-1 text-center md:text-left" data-i18n="footer_rights">
                     &copy; 2025 BDiR Maresme. Todos los derechos reservados.
                 </p>
             </div>
@@ -558,7 +559,7 @@
                 cta_final_btn: "VULL LA MEVA ASSESSORIA NUTRICIONAL GRATUÏTA",
                 footer_privacy: "Política de Privacitat",
                 footer_legal: "Avís Legal",
-                footer_cookies: "Política de Cookies", 
+                footer_cookies: "Política de Galetes (Cookies)", 
                 footer_rights: "&copy; 2025 BDiR Maresme. Tots els drets reservats.",
                 whatsapp_message: "Vull sol·licitar la meva assessoria nutricional gratuïta",
 
