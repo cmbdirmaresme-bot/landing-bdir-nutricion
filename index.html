@@ -54,6 +54,16 @@
             z-index: 50;
             background-color: rgba(0, 0, 0, 0.7);
         }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        input.error, select.error {
+            border-color: #dc2626 !important;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-white font-sans text-gray-800 antialiased selection:bg-blue-100 selection:text-blue-900">
@@ -92,7 +102,7 @@
                         </p>
                         
                         <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start lg:hidden">
-                            <a href="#formulario" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-bdir-blue hover-bg-bdir-dark transition-colors">
+                            <a href="#formulario" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-bdir-blue hover:bg-[#007bb0] transition-colors">
                                 Agenda tu Asesoría Gratis
                             </a>
                         </div>
@@ -129,39 +139,43 @@
                                 <label for="contact_method" class="block text-sm font-semibold text-gray-700" data-i18n="label_contact_method">
                                     ¿Cómo prefieres que te contactemos?
                                 </label>
-                                <select id="contact_method" name="metodo_contacto" required onchange="updateContactFields(this.value)" class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition">
+                                <select id="contact_method" name="metodo_contacto" required onchange="updateContactFields(this.value); clearFieldError('contact_method')" class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition">
                                     <option value="">-- Selecciona una opción --</option>
                                     <option value="Telefono" data-i18n="option_phone">Teléfono</option>
                                     <option value="WhatsApp" data-i18n="option_whatsapp">WhatsApp</option>
                                     <option value="Email" data-i18n="option_email">Email</option>
                                 </select>
+                                <div id="error_contact_method" class="error-message hidden"></div>
                             </div>
 
                             <!-- PASO 2: NOMBRE (APARECE CUANDO SELECCIONA CUALQUIER OPCIÓN) -->
                             <div id="fieldNombre" class="hidden">
                                 <label for="nombre" class="block text-sm font-semibold text-gray-700">Nombre</label>
                                 <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" 
-                                       class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition">
+                                       class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition" oninput="clearFieldError('nombre')">
+                                <div id="error_nombre" class="error-message hidden"></div>
                             </div>
 
                             <!-- PASO 3A: TELÉFONO (SI ELIGE TELÉFONO O WHATSAPP) -->
                             <div id="fieldTelefono" class="hidden">
                                 <label for="telefono" class="block text-sm font-semibold text-gray-700">Teléfono Móvil</label>
                                 <input type="tel" id="telefono" name="telefono" placeholder="Ej: 93 123 45 67" 
-                                       class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition">
+                                       class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition" oninput="clearFieldError('telefono')">
+                                <div id="error_telefono" class="error-message hidden"></div>
                             </div>
 
                             <!-- PASO 3B: EMAIL (SI ELIGE EMAIL) -->
                             <div id="fieldEmail" class="hidden">
                                 <label for="email" class="block text-sm font-semibold text-gray-700">Correo Electrónico</label>
                                 <input type="email" id="email" name="email" placeholder="tu@email.com" 
-                                       class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition">
+                                       class="block w-full rounded-md border-gray-300 bg-gray-50 border px-4 py-3 text-gray-900 focus:border-bdir-blue focus:ring-bdir-blue focus:outline-none transition" oninput="clearFieldError('email')">
+                                <div id="error_email" class="error-message hidden"></div>
                             </div>
 
                             <!-- CASILLA TÉRMINOS (SIEMPRE VISIBLE) -->
                             <div class="flex items-start pt-2">
                                 <div class="flex items-center h-5">
-                                    <input id="terms" name="terms_accepted" type="checkbox" required class="focus:ring-bdir-blue h-4 w-4 text-bdir-blue border-gray-300 rounded">
+                                    <input id="terms" name="terms_accepted" type="checkbox" class="focus:ring-bdir-blue h-4 w-4 text-bdir-blue border-gray-300 rounded" onchange="clearFieldError('terms')">
                                 </div>
                                 <div class="ml-3 text-xs leading-5">
                                     <label for="terms" class="font-medium text-gray-600">
@@ -173,6 +187,7 @@
                                     </label>
                                 </div>
                             </div>
+                            <div id="error_terms" class="error-message hidden"></div>
 
                             <!-- BOTÓN ENVÍO -->
                             <button id="submit-btn" type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-bdir-blue hover:bg-[#007bb0] transition-colors">
@@ -420,7 +435,10 @@
                 legal_content: "<p>Contenido del aviso legal de BDiR Maresme Nutrición.</p>",
                 privacy_content: "<p>Política de privacidad de BDiR Maresme.</p>",
                 cookies_content: "<p>Política de cookies de BDiR Maresme.</p>",
-                modal_close_btn: "Cerrar"
+                modal_close_btn: "Cerrar",
+                error_required_field: "Este campo es obligatorio",
+                error_invalid_email: "Por favor, ingresa un email válido",
+                error_checkbox: "Debes aceptar los términos y condiciones"
             },
             ca: {
                 hero_title_1: "Transforma la teva alimentació.",
@@ -465,7 +483,10 @@
                 legal_content: "<p>Contingut de l'avís legal de BDiR Maresme Nutrició.</p>",
                 privacy_content: "<p>Política de privacitat de BDiR Maresme.</p>",
                 cookies_content: "<p>Política de cookies de BDiR Maresme.</p>",
-                modal_close_btn: "Tancar"
+                modal_close_btn: "Tancar",
+                error_required_field: "Aquest camp és obligatori",
+                error_invalid_email: "Si us plau, introdueix un email vàlid",
+                error_checkbox: "Has d'acceptar els termes i condicions"
             }
         };
 
@@ -521,6 +542,92 @@
             }
         }
 
+        // LIMPIAR ERRORES DE CAMPO
+        function clearFieldError(fieldId) {
+            const errorElement = document.getElementById(`error_${fieldId}`);
+            const field = document.getElementById(fieldId);
+            if (errorElement) {
+                errorElement.classList.add('hidden');
+            }
+            if (field) {
+                field.classList.remove('error');
+            }
+        }
+
+        // MOSTRAR ERROR DE CAMPO
+        function showFieldError(fieldId, message) {
+            const errorElement = document.getElementById(`error_${fieldId}`);
+            const field = document.getElementById(fieldId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.remove('hidden');
+            }
+            if (field) {
+                field.classList.add('error');
+            }
+        }
+
+        // VALIDAR FORMULARIO
+        function validateForm() {
+            const lang = document.documentElement.lang || 'es';
+            let isValid = true;
+
+            // Limpiar todos los errores previos
+            document.querySelectorAll('[id^="error_"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('input, select').forEach(el => {
+                el.classList.remove('error');
+            });
+
+            // Validar método de contacto
+            const contactMethod = document.getElementById('contact_method').value;
+            if (!contactMethod) {
+                showFieldError('contact_method', translations[lang].error_required_field);
+                isValid = false;
+            }
+
+            // Validar nombre (siempre requerido)
+            const nombre = document.getElementById('nombre').value.trim();
+            if (!document.getElementById('fieldNombre').classList.contains('hidden') && !nombre) {
+                showFieldError('nombre', translations[lang].error_required_field);
+                isValid = false;
+            }
+
+            // Validar teléfono si está visible
+            const telefono = document.getElementById('telefono').value.trim();
+            if (!document.getElementById('fieldTelefono').classList.contains('hidden') && !telefono) {
+                showFieldError('telefono', translations[lang].error_required_field);
+                isValid = false;
+            }
+
+            // Validar email si está visible
+            const email = document.getElementById('email').value.trim();
+            if (!document.getElementById('fieldEmail').classList.contains('hidden')) {
+                if (!email) {
+                    showFieldError('email', translations[lang].error_required_field);
+                    isValid = false;
+                } else if (!isValidEmail(email)) {
+                    showFieldError('email', translations[lang].error_invalid_email);
+                    isValid = false;
+                }
+            }
+
+            // Validar términos
+            if (!document.getElementById('terms').checked) {
+                showFieldError('terms', translations[lang].error_checkbox);
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // VALIDAR EMAIL
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
         function openModal(type) {
             const modal = document.getElementById('legalModal');
             const title = document.getElementById('modalTitle');
@@ -552,6 +659,12 @@
 
         async function submitForm(event) {
             event.preventDefault();
+
+            // Validar antes de enviar
+            if (!validateForm()) {
+                return;
+            }
+
             const btn = document.getElementById('submit-btn');
             const span = btn.querySelector('span');
             const lang = document.documentElement.lang || 'es';
@@ -604,7 +717,5 @@
         });
     </script>
 
-</body>
-</html>
 </body>
 </html>
